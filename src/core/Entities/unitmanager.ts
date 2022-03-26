@@ -7,7 +7,7 @@ export const PUNK_PRICE = 10;
 export const IDONTKNOW_PRICE = 25;
 export const MONKEY_PRICE = 50;
 
-const ETH_START = 30;
+const ETH_START = 3000000;
 
 export enum typeSelect {
   NULL,
@@ -22,24 +22,26 @@ export class UnitManager {
   bounding: boundingButton;
   canvas: HTMLCanvasElement;
   units: IUnit[];
+  earthRadius: number;
 
 
-  constructor(bounding: boundingButton, canvas: HTMLCanvasElement) {
+  constructor(bounding: boundingButton, canvas: HTMLCanvasElement, earthRadius: number) {
     this.canvas = canvas;
     this.canvas.addEventListener('mouseup', this.controler.bind(this));
 
     this.selected = typeSelect.NULL;	// TODO SELECTION
     this.etherum = ETH_START;
     this.bounding = bounding;
+	this.earthRadius = earthRadius;
     this.units = [];
   }
 
   private spawnPunk(x: number, y: number): void {
     if (this.etherum >= PUNK_PRICE) {
       this.etherum -= PUNK_PRICE;
-      const punk = new PunkUnit(x, y);
+      const punk = new PunkUnit(x, y, this.earthRadius);
       this.units.push(punk);
-      console.log('spawned');
+      //console.log('spawned');
     }
   }
 

@@ -1,7 +1,7 @@
 import { Game } from './core/game';
 import './style.css';
 
-export const CANVAS_WIDTH = 1270;
+export const CANVAS_WIDTH = 1280;
 export const CANVAS_HEIGHT = 720;
 
 // HTML Canvas Element setup

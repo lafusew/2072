@@ -16,20 +16,20 @@ export class Game {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     this.renderer = new Renderer(this.canvas, this.ctx);
-    this.earth = new Earth((canvas.width / 2) - 200, (canvas.height / 2) - 200)
-    this.btc = new Btc(200, 200)
-    this.unitManager = new UnitManager(this.renderer.btnRenderer.getUnitsBtnsBounding(), this.canvas);
+    this.earth = new Earth((canvas.width / 2), (canvas.height / 2))
+    this.btc = new Btc(200, 200, 80)
+    this.unitManager = new UnitManager(this.renderer.btnRenderer.getUnitsBtnsBounding(), this.canvas, this.earth.size / 2);
   }
 
   update(delta: number) {
     // console.log(`delta(elapsed time since last frame): ${delta}`)
     // Logic
-    this.btc.update();
+    this.btc.update(this.earth);
     this.unitManager.getUnits().forEach(element => {
       if (!element.canAttack(this.earth))
       {
-        console.log('can attack');
-        element.moove(this.earth.x + (this.earth.size / 2), this.earth.y + (this.earth.size / 2), 1);
+        console.log('cant Attack');
+        element.moove(this.earth.x, this.earth.y, 1);
       }
     });
     // Render

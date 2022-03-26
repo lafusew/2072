@@ -47,7 +47,7 @@ export class Renderer {
 
   renderNfts(units: IUnit[]) {
     units.forEach(element => {
-      this.ctx.drawImage(this.punkImage, element.x, element.y, 50, 50);
+      this.ctx.drawImage(this.punkImage, element.x - (element.size / 2), element.y - (element.size / 2), element.size, element.size);
     });
   }
 
@@ -56,6 +56,6 @@ export class Renderer {
   }
 
   renderEarth(earth: Earth) {
-    this.ctx.drawImage(this.earthImage, earth.x, earth.y, earth.getSize(), earth.getSize())
+    this.ctx.drawImage(this.earthImage, earth.x - (earth.size / 2), earth.y - (earth.size / 2), earth.size, earth.size)
   }
 }

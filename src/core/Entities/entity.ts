@@ -15,6 +15,7 @@ export enum allType {
 export interface IEntity {
 	x: number;
 	y: number;
+	size: number;
 	state: allState;
 	type: allType;
 	lifeAmount: number;

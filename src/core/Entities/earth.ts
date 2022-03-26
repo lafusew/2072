@@ -1,7 +1,7 @@
 import { allState, allType, IEntity } from "./entity";
 
 const LIFE_EARTH = 50;
-const SIZE_EARTH = 400;
+const SIZE_EARTH = 300;
 
 
 export class Earth implements IEntity {
@@ -13,11 +13,13 @@ export class Earth implements IEntity {
   lifeAmount: number;
 
   constructor(x: number, y: number) {
+    this.size = SIZE_EARTH;
     this.x = x;
     this.y = y;
+    console.log(this.x);
+    console.log(this.y);
     this.state = allState.NOMOOVE;
     this.type = allType.EARTH;
-    this.size = SIZE_EARTH;
     this.lifeAmount = LIFE_EARTH;
   }
 
