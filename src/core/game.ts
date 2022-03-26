@@ -1,6 +1,7 @@
 
 import { Renderer } from "../renderer/renderer";
 import { Btc } from "./Entities/bitcoin";
+import { Earth } from "./Entities/earth";
 import { UnitManager } from "./Entities/unitmanager";
 import { AudioManager } from "./sound/soundManager";
 
@@ -17,17 +18,17 @@ export class Game {
   renderer: Renderer;
   btc: Btc;
   unitManager: UnitManager;
+  earth: Earth
   audio: AudioManager;
-
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     this.renderer = new Renderer(this.canvas, this.ctx);
+    this.earth = new Earth((canvas.width / 2), (canvas.height / 2))
+    this.btc = new Btc(200, 200, 80)
+    this.unitManager = new UnitManager(this.renderer.btnRenderer.getUnitsBtnsBounding(), this.canvas, this.earth.size / 2);
     this.audio = new AudioManager(SOUNDS_MAP);
-
-    this.btc = new Btc(200, 200)
-    this.unitManager = new UnitManager(this.renderer.btnRenderer.getUnitsBtnsBounding(), this.canvas);
   }
 
   async init() {
@@ -37,10 +38,19 @@ export class Game {
   update(delta: number) {
     // console.log(`delta(elapsed time since last frame): ${delta}`)
     // Logic
-    this.btc.update();
+    this.btc.update(this.earth);
+    this.unitManager.getUnits().forEach(element => {
+      if (!element.canAttack(this.earth))
+      {
+        console.log('cant Attack');
+        element.moove(this.earth.x, this.earth.y, 1);
+      }
+    });
     // Render
     this.renderer.renderBackground();
+    this.renderer.renderEarth(this.earth);
     this.renderer.renderUnitBtn();
+    this.renderer.renderNfts(this.unitManager.getUnits());
     this.renderer.renderBtc(this.btc)
   }
 }

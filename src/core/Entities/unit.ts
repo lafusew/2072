@@ -1,26 +1,29 @@
+import { Earth } from "./earth";
 import { allState, allType, IEntity, IUnit } from "./entity";
 
-const LIFE_PUNK = 50;
+const LIFE_PUNK  = 50;
 const SPEED_PUNK = 1;
-const RANGE_PUNK = 5;
+const SIZE_PUNK  = 50;
 
-class PunkUnit implements IUnit {
+export class PunkUnit implements IUnit {
   x: number;
   y: number;
   state: allState;
   type: allType;
   lifeAmount: number;
+  size: number;
   speed: number;
   range: number;
 
-  constructor(x: number, y: number) {
+  constructor(x: number, y: number, radiusEarth: number) {
+    this.size = SIZE_PUNK;
     this.x = x;
     this.y = y;
     this.state = allState.MOOVE;
     this.type = allType.PUNK;
     this.lifeAmount = LIFE_PUNK;
     this.speed = SPEED_PUNK;
-    this.range = RANGE_PUNK;
+    this.range = radiusEarth * 1.2;
   }
 
   setState(state: allState): void {
@@ -36,8 +39,25 @@ class PunkUnit implements IUnit {
   }
 
   moove(x: number, y: number, delta: number): void {
-    this.x += Math.sin(this.x - x) * delta * this.speed;
-    this.y += Math.cos(this.y - y) * delta * this.speed;
+    let dx = x - this.x;
+    let dy = y - this.y;
+
+    let dist = Math.sqrt((dx*dx) + (dy*dy));
+    let step = (SPEED_PUNK / dist);
+    //let direction = Math.asin(dy / dist);
+
+    //let hyp = Math.atan2( dy, dx ) * ( 180 / Math.PI )
+    //let angle = Math.sin(dx);
+    //console.log("dist = " + dist)
+    //let mot_y = (2 * Math.sin(direction));
+    //let mot_x = (2 * Math.cos(direction));
+
+    this.x += step * dx;
+    this.y += step * dy;
+    //this.x = x + (Math.cos(dx) * delta * this.speed);
+    //this.y += Math.sin(dy) * delta * this.speed;
+
+   // console.log(this.x);
   }
 
   attack(amount: number, target: IEntity): void {
@@ -45,11 +65,14 @@ class PunkUnit implements IUnit {
   }
 
   canAttack(target: IEntity): boolean {
+    console.log("radius = " + this.range)
     let distance_sqrt = Math.pow(target.x - this.x, 2)
       + Math.pow(target.y - this.y, 2);
     let distance = Math.sqrt(distance_sqrt);
+    console.log(distance);
     if (distance <= this.range)
       return (true);
     return (false);
   }
+
 }

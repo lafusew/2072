@@ -1,100 +1,111 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../main";
 import { boundingButton } from "../../renderer/inputs";
+import { IUnit } from "./entity";
+import { PunkUnit } from "./unit";
 
-export const PUNK_PRICE      = 10;
+export const PUNK_PRICE = 10;
 export const IDONTKNOW_PRICE = 25;
-export const MONKEY_PRICE    = 50;
+export const MONKEY_PRICE = 50;
 
-const ETH_START = 30;
+const ETH_START = 3000000;
 
 export enum typeSelect {
-	NULL,
-	PUNK,
-	IDONTKNOW,
-	MONKEY,
+  NULL,
+  PUNK,
+  IDONTKNOW,
+  MONKEY,
 }
 
 export class UnitManager {
-	selected: typeSelect;
-	etherum: number;
-	bounding: boundingButton;
-	canvas: HTMLCanvasElement;
-
-	constructor(bounding: boundingButton, canvas: HTMLCanvasElement) {
-		this.selected = typeSelect.NULL;	// TODO SELECTION
-		this.etherum = ETH_START;
-		this.bounding = bounding;
-		this.canvas = canvas;
-
-		this.canvas.addEventListener('mouseup', this.controler.bind(this));
-	}
-
-	private spawnPunk(): void {
-		if (this.etherum >= PUNK_PRICE)
-		{
-			this.etherum -= PUNK_PRICE;
-			// TODO CREATE PUNK
-		}
-	}
-
-	private isSelection(x: number, y: number): boolean {
-		if (x >= this.bounding.startX
-				&& x <= this.bounding.startX + this.bounding.btnSize
-				&& y >= this.bounding.startY
-				&& y <= this.bounding.startY + (this.bounding.btnSize * this.bounding.btnCount))
-			return (true);
-		return (false)
-	}
+  selected: typeSelect;
+  etherum: number;
+  bounding: boundingButton;
+  canvas: HTMLCanvasElement;
+  units: IUnit[];
+  earthRadius: number;
 
 
-	private spawnNft(): void {
-		switch (this.selected) {
-			case typeSelect.PUNK:
-				this.spawnPunk();
-				break;
-			}
-		}
+  constructor(bounding: boundingButton, canvas: HTMLCanvasElement, earthRadius: number) {
+    this.canvas = canvas;
+    this.canvas.addEventListener('mouseup', this.controler.bind(this));
 
-	addEtherum(nb: number): void {
-		this.etherum += nb;
-	}
+    this.selected = typeSelect.NULL;	// TODO SELECTION
+    this.etherum = ETH_START;
+    this.bounding = bounding;
+	this.earthRadius = earthRadius;
+    this.units = [];
+  }
 
-	getEtherum(): number {
-		return (this.etherum);
-	}
+  private spawnPunk(x: number, y: number): void {
+    if (this.etherum >= PUNK_PRICE) {
+      this.etherum -= PUNK_PRICE;
+      const punk = new PunkUnit(x, y, this.earthRadius);
+      this.units.push(punk);
+      //console.log('spawned');
+    }
+  }
 
-	getSelected(): typeSelect {
-		return (this.selected);
-	}
+  private isSelection(x: number, y: number): boolean {
+    if (x >= this.bounding.startX
+      && x <= this.bounding.startX + this.bounding.btnSize
+      && y >= this.bounding.startY
+      && y <= this.bounding.startY + (this.bounding.btnSize * this.bounding.btnCount))
+      return (true);
+    return (false)
+  }
 
-	private setSelected(y: number): void {
-		let startButton = this.bounding.startY;
-		let endButton = this.bounding.startY + this.bounding.btnSize;
-		let i;
 
-		for (i = 0; i < this.bounding.btnCount; ++i) {
-			if (y >= startButton && y <= endButton)
-			{
-				this.selected = i + 1;
-				break;
-			}
-			startButton = endButton;
-			endButton += this.bounding.btnSize;
-		}
-	}
+  private spawnNft(x: number, y: number): void {
+    switch (this.selected) {
+      case typeSelect.PUNK:
+        this.spawnPunk(x, y);
+        break;
+    }
+  }
 
-	controler(e: MouseEvent): void {
-		let rect = this.canvas.getBoundingClientRect();
-		const x = e.x - rect.left;
-		const y = e.y - rect.top;
+  addEtherum(nb: number): void {
+    this.etherum += nb;
+  }
 
-		if (x < 0 || x > CANVAS_WIDTH
-				|| y < 0 || y > CANVAS_HEIGHT)
-			return ;
-		if (this.isSelection(x, y))
-			this.setSelected(y);
-		else
-			this.spawnNft();
-	}
+  getEtherum(): number {
+    return (this.etherum);
+  }
+
+  getSelected(): typeSelect {
+    return (this.selected);
+  }
+
+  private setSelected(y: number): void {
+    let startButton = this.bounding.startY;
+    let endButton = this.bounding.startY + this.bounding.btnSize;
+    let i;
+
+    for (i = 0; i < this.bounding.btnCount; ++i) {
+      if (y >= startButton && y <= endButton) {
+        this.selected = i + 1;
+        break;
+      }
+      startButton = endButton;
+      endButton += this.bounding.btnSize;
+    }
+  }
+
+  getUnits(): IUnit[] {
+    return this.units;
+  }
+
+  controler(e: MouseEvent): void {
+    let rect = this.canvas.getBoundingClientRect();
+    const x = e.x - rect.left;
+    const y = e.y - rect.top;
+
+    if (x < 0 || x > CANVAS_WIDTH
+      || y < 0 || y > CANVAS_HEIGHT)
+      return;
+    if (this.isSelection(x, y))
+      this.setSelected(y);
+    else
+      this.spawnNft(x, y);
+  }
 
 }
