@@ -21,8 +21,8 @@ export class UnitManager {
   etherum: number;
   bounding: boundingButton;
   canvas: HTMLCanvasElement;
-
   units: IUnit[];
+
 
   constructor(bounding: boundingButton, canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -34,13 +34,12 @@ export class UnitManager {
     this.units = [];
   }
 
-  private spawnPunk(): void {
+  private spawnPunk(x: number, y: number): void {
     if (this.etherum >= PUNK_PRICE) {
       this.etherum -= PUNK_PRICE;
-      const punk = new PunkUnit(50, 50);
+      const punk = new PunkUnit(x, y);
       this.units.push(punk);
-      console.log('spawned')
-      // TODO CREATE PUNK
+      console.log('spawned');
     }
   }
 
@@ -54,10 +53,10 @@ export class UnitManager {
   }
 
 
-  private spawnNft(): void {
+  private spawnNft(x: number, y: number): void {
     switch (this.selected) {
       case typeSelect.PUNK:
-        this.spawnPunk();
+        this.spawnPunk(x, y);
         break;
     }
   }
@@ -104,7 +103,7 @@ export class UnitManager {
     if (this.isSelection(x, y))
       this.setSelected(y);
     else
-      this.spawnNft();
+      this.spawnNft(x, y);
   }
 
 }

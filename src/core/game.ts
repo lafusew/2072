@@ -25,6 +25,13 @@ export class Game {
     // console.log(`delta(elapsed time since last frame): ${delta}`)
     // Logic
     this.btc.update();
+    this.unitManager.getUnits().forEach(element => {
+      if (!element.canAttack(this.earth))
+      {
+        console.log('can attack');
+        element.moove(this.earth.x + (this.earth.size / 2), this.earth.y + (this.earth.size / 2), 1);
+      }
+    });
     // Render
     this.renderer.renderBackground();
     this.renderer.renderEarth(this.earth);

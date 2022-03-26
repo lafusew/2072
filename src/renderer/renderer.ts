@@ -46,9 +46,9 @@ export class Renderer {
   }
 
   renderNfts(units: IUnit[]) {
-    units.forEach(() => {
-      this.ctx.drawImage(this.punkImage, 50, 50, 50, 50)
-    })
+    units.forEach(element => {
+      this.ctx.drawImage(this.punkImage, element.x, element.y, 50, 50);
+    });
   }
 
   renderUnitBtn() {

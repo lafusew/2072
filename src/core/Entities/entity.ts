@@ -27,6 +27,7 @@ export interface IUnit extends IEntity {
 	speed: number;
 	range: number;
 
+	// TODO ADD update(): void ??
 	moove:(x: number, y: number, delta: number) => void;
 	attack:(amount: number, target: IEntity) => void;
 	canAttack:(target: IEntity) => boolean;
