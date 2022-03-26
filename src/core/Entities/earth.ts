@@ -15,8 +15,6 @@ export class Earth implements IEntity {
     this.size = SIZE_EARTH;
     this.x = x;
     this.y = y;
-    console.log(this.x);
-    console.log(this.y);
     this.state = allState.NOMOOVE;
     this.type = allType.EARTH;
     this.lifeAmount = LIFE_EARTH;

@@ -2,10 +2,11 @@ import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../main";
 import { Earth } from "./earth";
 import { allState, allType, IEntity, IUnit } from "./entity";
 
-const LIFE_BTC = 100;
-const SPEED_BTC = 1000;
-const RANGE_BTC = 10;
-const SIZE_BTC = 60;
+const LIFE_BTC   = 100;
+const SPEED_BTC  = 1000;
+const DAMAGE_BTC = 25;
+const RANGE_BTC  = 60;
+const SIZE_BTC   = 60;
 
 export class Btc implements IUnit {
   x: number;
@@ -16,6 +17,7 @@ export class Btc implements IUnit {
   lifeAmount: number;
   speed: number;
   range: number;
+  damage: number;
   velX: number;
   velY: number;
   keys: Record<string, boolean>;
@@ -31,6 +33,7 @@ export class Btc implements IUnit {
     this.lifeAmount = LIFE_BTC;
     this.speed = SPEED_BTC;
     this.range = RANGE_BTC;
+    this.damage = DAMAGE_BTC;
     this.keys = {}
 
     window.addEventListener('keydown', (e) => {

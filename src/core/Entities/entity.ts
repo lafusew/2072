@@ -27,6 +27,7 @@ export interface IEntity {
 export interface IUnit extends IEntity {
 	speed: number;
 	range: number;
+	damage: number;
 
 	// TODO ADD update(): void ??
 	moove:(x: number, y: number, delta: number) => void;

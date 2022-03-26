@@ -1,9 +1,10 @@
 import { Earth } from "./earth";
 import { allState, allType, IEntity, IUnit } from "./entity";
 
-const LIFE_PUNK  = 50;
-const SPEED_PUNK = 1;
-const SIZE_PUNK  = 50;
+const LIFE_PUNK   = 50;
+const SPEED_PUNK  = 1;
+const SIZE_PUNK   = 50;
+const DAMAGE_PUNK = 50;
 
 export class PunkUnit implements IUnit {
   x: number;
@@ -14,6 +15,7 @@ export class PunkUnit implements IUnit {
   size: number;
   speed: number;
   range: number;
+  damage: number;
 
   constructor(x: number, y: number, radiusEarth: number) {
     this.size = SIZE_PUNK;
@@ -24,6 +26,7 @@ export class PunkUnit implements IUnit {
     this.lifeAmount = LIFE_PUNK;
     this.speed = SPEED_PUNK;
     this.range = radiusEarth * 1.2;
+    this.damage = DAMAGE_PUNK;
   }
 
   setState(state: allState): void {
@@ -65,11 +68,9 @@ export class PunkUnit implements IUnit {
   }
 
   canAttack(target: IEntity): boolean {
-    console.log("radius = " + this.range)
     let distance_sqrt = Math.pow(target.x - this.x, 2)
       + Math.pow(target.y - this.y, 2);
     let distance = Math.sqrt(distance_sqrt);
-    console.log(distance);
     if (distance <= this.range)
       return (true);
     return (false);
