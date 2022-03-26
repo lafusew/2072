@@ -1,3 +1,5 @@
+import { IEntity } from "../core/Entities/entity";
+
 interface SpriteSheets {
   btc: SpriteSheet;
   cryptoPunk: SpriteSheet;
@@ -15,35 +17,18 @@ interface SpriteSheet {
 export class SpriteRenderer {
   ctx: CanvasRenderingContext2D;
 
-  btcSprites: SpriteSheet;
-  cryptoPunkSprites: SpriteSheet;
-  boredApesSprites: SpriteSheet;
-  earthSprites: SpriteSheet;
+  btcSprites: CanvasImageSource;
 
   constructor(
-    spriteSheets: SpriteSheets,
     ctx: CanvasRenderingContext2D
   ) {
     this.ctx = ctx;
-    this.btcSprites = spriteSheets.btc;
-    this.cryptoPunkSprites = spriteSheets.cryptoPunk;
-    this.boredApesSprites = spriteSheets.boredApes;
-    this.earthSprites = spriteSheets.earth;
+    this.btcSprites = new Image()
+    this.btcSprites.src = 'src/assets/btc.png'
   }
 
-  renderEntity(entity: any) {
-    switch (entity.state) {
-      case 'iddle':
-
-        break;
-
-      case 'moove':
-
-        break;
-
-      case 'attack':
-        break;
-    }
+  renderEntity(entity: IEntity) {
+    this.ctx.drawImage(this.btcSprites, entity.x, entity.y, 80, 80);
   }
 }
 
