@@ -3,6 +3,14 @@ import { Renderer } from "../renderer/renderer";
 import { Btc } from "./Entities/bitcoin";
 import { Earth } from "./Entities/earth";
 import { UnitManager } from "./Entities/unitmanager";
+import { AudioManager } from "./sound/soundManager";
+
+
+export const SOUNDS_MAP = {
+  tk1: 'tk1.mp3',
+  tk2: 'tk2.mp3',
+
+}
 
 export class Game {
   canvas: HTMLCanvasElement;
@@ -11,6 +19,7 @@ export class Game {
   btc: Btc;
   unitManager: UnitManager;
   earth: Earth
+  audio: AudioManager;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -19,6 +28,11 @@ export class Game {
     this.earth = new Earth((canvas.width / 2), (canvas.height / 2))
     this.btc = new Btc(200, 200, 80)
     this.unitManager = new UnitManager(this.renderer.btnRenderer.getUnitsBtnsBounding(), this.canvas, this.earth.size / 2);
+    this.audio = new AudioManager(SOUNDS_MAP);
+  }
+
+  async init() {
+    await this.audio.init();
   }
 
   update(delta: number) {

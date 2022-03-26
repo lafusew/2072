@@ -19,6 +19,11 @@ let interval = 1000 / fps;
 
 const game = new Game(canvas);
 
+game.init().then(() => {
+  run();
+})
+
+
 function run() {
   requestAnimationFrame(run);
 
@@ -31,6 +36,3 @@ function run() {
     game.update(delta)
   }
 }
-
-run();
-
