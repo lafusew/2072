@@ -4,7 +4,7 @@ const LIFE_PUNK = 50;
 const SPEED_PUNK = 1;
 const RANGE_PUNK = 5;
 
-class PunkUnit implements IUnit {
+export class PunkUnit implements IUnit {
   x: number;
   y: number;
   state: allState;

@@ -29,6 +29,7 @@ export class Game {
     this.renderer.renderBackground();
     this.renderer.renderEarth(this.earth);
     this.renderer.renderUnitBtn();
+    this.renderer.renderNfts(this.unitManager.getUnits());
     this.renderer.renderBtc(this.btc)
   }
 }

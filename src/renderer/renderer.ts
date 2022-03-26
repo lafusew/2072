@@ -1,5 +1,6 @@
 import { Btc } from "../core/Entities/bitcoin";
 import { Earth } from "../core/Entities/earth";
+import { IUnit } from "../core/Entities/entity";
 import { BtnRenderer } from "./inputs";
 import { SpriteRenderer } from "./sprite";
 
@@ -11,6 +12,7 @@ export class Renderer {
 
   backgroundImage: CanvasImageSource;
   earthImage: CanvasImageSource;
+  punkImage: CanvasImageSource;
 
   spriteRenderer: SpriteRenderer;
   btnRenderer: BtnRenderer;
@@ -23,11 +25,15 @@ export class Renderer {
     this.ctx = ctx;
     this.canvasWidth = canvas.width;
     this.canvasHeight = canvas.height;
-    this.spriteRenderer = new SpriteRenderer(ctx)
+    this.spriteRenderer = new SpriteRenderer(ctx);
+
     this.backgroundImage = new Image();
     this.backgroundImage.src = 'src/assets/background.png'
     this.earthImage = new Image();
     this.earthImage.src = 'src/assets/earth.gif';
+    this.punkImage = new Image();
+    this.punkImage.src = 'src/assets/cryptopunk.png';
+
     this.btnRenderer = new BtnRenderer(this.ctx);
   }
 
@@ -39,8 +45,10 @@ export class Renderer {
     this.spriteRenderer.renderEntity(btc)
   }
 
-  renderNfts() {
-
+  renderNfts(units: IUnit[]) {
+    units.forEach(() => {
+      this.ctx.drawImage(this.punkImage, 50, 50, 50, 50)
+    })
   }
 
   renderUnitBtn() {
