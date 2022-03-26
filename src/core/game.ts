@@ -18,7 +18,7 @@ export class Game {
   update(delta: number) {
     // console.log(`delta(elapsed time since last frame): ${delta}`)
     // Logic
-
+    this.btc.update();
     // Render
     this.renderer.renderBackground();
     this.renderer.renderBtc(this.btc)

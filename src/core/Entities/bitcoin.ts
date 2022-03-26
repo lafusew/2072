@@ -1,7 +1,7 @@
 import { allState, allType, IEntity, IUnit } from "./entity";
 
 const LIFE_BTC = 100;
-const SPEED_BTC = 1;
+const SPEED_BTC = 100;
 const RANGE_BTC = 10;
 
 export class Btc implements IUnit {
@@ -12,16 +12,64 @@ export class Btc implements IUnit {
   lifeAmount: number;
   speed: number;
   range: number;
-
+  velX: number;
+  velY: number;
+  keys: Record<string, boolean>;
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
+	this.velX = 0;
+	this.velY = 0;
     this.state = allState.NOMOOVE;
     this.type = allType.BTC;
     this.lifeAmount = LIFE_BTC;
     this.speed = SPEED_BTC;
     this.range = RANGE_BTC;
+	this.keys = {}
+
+	window.addEventListener('keydown', (e) => {
+		this.keys[e.key] = true;
+	});
+
+	window.addEventListener('keyup', (e) => {
+		this.keys[e.key] = false;
+	});
   }
+
+	update(): void {
+		console.log(this.speed);
+
+		let friction = 0.9;
+
+		console.log(this.velX);
+		if (this.keys['ArrowUp'])  {
+			if (this.velY > -this.speed) {
+				this.velY--;
+			}
+		}
+
+		if (this.keys['ArrowDown']) {
+			if (this.velY < this.speed) {
+				this.velY++;
+			}
+		}
+		if (this.keys['ArrowRight']) {
+			if (this.velX < this.speed) {
+				this.velX++;
+			}
+		}
+		if (this.keys['ArrowLeft']) {
+			if (this.velX > -this.speed) {
+				this.velX--;
+			}
+		}
+
+		this.velY *= friction;
+		this.y += this.velY;
+		this.velX *= friction;
+		this.x += this.velX;
+
+	}
 
   setState(state: allState): void {
     this.state = state;
@@ -34,12 +82,6 @@ export class Btc implements IUnit {
     else
       this.setState(allState.TAKEDAMAGE);
   }
-
-  moove(x: number, y: number, delta: number): void {
-    this.x += Math.sin(this.x - x) * delta * this.speed;
-    this.y += Math.cos(this.y - y) * delta * this.speed;
-  }
-
   attack(amount: number, target: IEntity): void {
     target.takeDamage(amount);
   }
@@ -52,4 +94,6 @@ export class Btc implements IUnit {
       return (true);
     return (false);
   }
+  moove(): void{}
+ 
 }
