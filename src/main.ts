@@ -4,9 +4,12 @@ import './style.css';
 // HTML Canvas Element setup
 const app = document.querySelector<HTMLDivElement>('#app')!
 const canvas = document.createElement('canvas');
-canvas.width = window.innerWidth * 0.8;
-canvas.height = window.innerHeight * 0.8;
 app.appendChild(canvas);
+canvas.width = window.innerWidth * 0.8
+canvas.height = window.innerHeight * 0.8
+
+export const CANVAS_WIDTH = canvas.width;
+export const CANVAS_HEIGHT = canvas.height;
 
 let now: number;
 let delta: number;
@@ -30,3 +33,4 @@ function run() {
 }
 
 run();
+
