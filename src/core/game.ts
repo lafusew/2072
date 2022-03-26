@@ -26,7 +26,7 @@ export class Game {
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     this.renderer = new Renderer(this.canvas, this.ctx);
     this.earth = new Earth((canvas.width / 2), (canvas.height / 2))
-    this.btc = new Btc(200, 200, 80)
+    this.btc = new Btc(200, 200)
     this.unitManager = new UnitManager(this.renderer.btnRenderer.getUnitsBtnsBounding(), this.canvas, this.earth.size / 2);
     this.audio = new AudioManager(SOUNDS_MAP);
   }
@@ -40,8 +40,7 @@ export class Game {
     // Logic
     this.btc.update(this.earth);
     this.unitManager.getUnits().forEach(element => {
-      if (!element.canAttack(this.earth))
-      {
+      if (!element.canAttack(this.earth)) {
         console.log('cant Attack');
         element.moove(this.earth.x, this.earth.y, 1);
       }

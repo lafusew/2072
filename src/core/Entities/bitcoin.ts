@@ -1,10 +1,11 @@
-import { allState, allType, IEntity, IUnit } from "./entity";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../main";
 import { Earth } from "./earth";
+import { allState, allType, IEntity, IUnit } from "./entity";
 
 const LIFE_BTC = 100;
 const SPEED_BTC = 1000;
 const RANGE_BTC = 10;
+const SIZE_BTC = 60;
 
 export class Btc implements IUnit {
   x: number;
@@ -18,10 +19,11 @@ export class Btc implements IUnit {
   velX: number;
   velY: number;
   keys: Record<string, boolean>;
-  constructor(x: number, y: number, size: number) {
-    this.x = x + size / 2;
-    this.y = y + size / 2;
-	this.size = size;
+
+  constructor(x: number, y: number) {
+    this.size = SIZE_BTC;
+    this.x = x + this.size / 2;
+    this.y = y + this.size / 2;
     this.velX = 0;
     this.velY = 0;
     this.state = allState.NOMOOVE;
@@ -41,31 +43,31 @@ export class Btc implements IUnit {
   }
 
   wall_collision(): void {
-	if (this.x >= CANVAS_WIDTH - this.size / 2) {
-        this.x = CANVAS_WIDTH - this.size / 2;
+    if (this.x >= CANVAS_WIDTH - this.size / 2) {
+      this.x = CANVAS_WIDTH - this.size / 2;
     } else if (this.x <= this.size / 2) {
-        this.x = this.size / 2;
+      this.x = this.size / 2;
     }
 
     if (this.y > CANVAS_HEIGHT - this.size / 2) {
-        this.y = CANVAS_HEIGHT - this.size / 2;
+      this.y = CANVAS_HEIGHT - this.size / 2;
     } else if (this.y <= this.size / 2) {
-        this.y = this.size / 2;
+      this.y = this.size / 2;
     }
   }
 
   earth_collision(earth: Earth): void {
-	const dx = this.x - CANVAS_WIDTH / 2;
-	const dy = this.y - CANVAS_HEIGHT / 2;
-	const dist = Math.sqrt(dx * dx + dy * dy);
+    const dx = this.x - CANVAS_WIDTH / 2;
+    const dy = this.y - CANVAS_HEIGHT / 2;
+    const dist = Math.sqrt(dx * dx + dy * dy);
 
-	if (earth.size / 2 + this.size / 2 >= dist){
-		const nx = dx / dist;
-		const ny = dy / dist;
+    if (earth.size / 2 + this.size / 2 >= dist) {
+      const nx = dx / dist;
+      const ny = dy / dist;
 
-		this.x = CANVAS_WIDTH / 2 + nx * (this.size / 2 + earth.size / 2);
-		this.y = CANVAS_HEIGHT / 2 + ny * (this.size / 2 + earth.size / 2);
-	}
+      this.x = CANVAS_WIDTH / 2 + nx * (this.size / 2 + earth.size / 2);
+      this.y = CANVAS_HEIGHT / 2 + ny * (this.size / 2 + earth.size / 2);
+    }
   }
 
   update(earth: Earth): void {
@@ -103,8 +105,8 @@ export class Btc implements IUnit {
     this.velX *= friction;
     this.x += this.velX;
 
-	this.wall_collision();
-	this.earth_collision(earth);
+    this.wall_collision();
+    this.earth_collision(earth);
 
   }
 
