@@ -1,12 +1,12 @@
-enum allState {
+export enum allState {
 	NOMOOVE,
 	MOOVE,
 	ATTACK,
 	TAKEDAMAGE
 }
-enum entitityType {
+export enum allType {
 	NULL,
-	NFT,
+	PUNK,
 	BTC,
 	EARTH
 }
@@ -15,7 +15,7 @@ interface IEntity {
 	x: number;
 	y: number;
 	state: allState;
-	type: entitityType;
+	type: allType;
 	lifeAmount: number;
 
 	updateState:() => void;
@@ -23,7 +23,7 @@ interface IEntity {
 	die:() => void;
 }
 
-interface IUnit extends IEntity {
+export interface IUnit extends IEntity {
 	moove:(x: number, y: number) => void;
 	attack:(amount: number, target: IEntity) => void;
 }
