@@ -1,10 +1,13 @@
 import { allState, allType, IEntity } from "./entity";
 
 const LIFE_EARTH = 50;
+const SIZE_EARTH = 400;
 
-class Earth implements IEntity {
+
+export class Earth implements IEntity {
   x: number;
   y: number;
+  size: number;
   state: allState;
   type: allType;
   lifeAmount: number;
@@ -14,6 +17,7 @@ class Earth implements IEntity {
     this.y = y;
     this.state = allState.NOMOOVE;
     this.type = allType.EARTH;
+    this.size = SIZE_EARTH;
     this.lifeAmount = LIFE_EARTH;
   }
 
@@ -27,5 +31,9 @@ class Earth implements IEntity {
       this.setState(allState.DEAD);
     else
       this.setState(allState.TAKEDAMAGE);
+  }
+
+  getSize(): number {
+    return this.size
   }
 }

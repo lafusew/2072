@@ -1,7 +1,7 @@
 import { allState, allType, IEntity, IUnit } from "./entity";
 
 const LIFE_BTC = 100;
-const SPEED_BTC = 100;
+const SPEED_BTC = 1000;
 const RANGE_BTC = 10;
 
 export class Btc implements IUnit {
@@ -18,58 +18,61 @@ export class Btc implements IUnit {
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
-	this.velX = 0;
-	this.velY = 0;
+    this.velX = 0;
+    this.velY = 0;
     this.state = allState.NOMOOVE;
     this.type = allType.BTC;
     this.lifeAmount = LIFE_BTC;
     this.speed = SPEED_BTC;
     this.range = RANGE_BTC;
-	this.keys = {}
+    this.keys = {}
 
-	window.addEventListener('keydown', (e) => {
-		this.keys[e.key] = true;
-	});
+    window.addEventListener('keydown', (e) => {
+      this.keys[e.key] = true;
+    });
 
-	window.addEventListener('keyup', (e) => {
-		this.keys[e.key] = false;
-	});
+    window.addEventListener('keyup', (e) => {
+      this.keys[e.key] = false;
+    });
   }
 
-	update(): void {
-		//console.log(this.speed);
+  update(): void {
 
-		let friction = 0.9;
+    let friction = 0.9;
 
-		//console.log(this.velX);
-		if (this.keys['ArrowUp'])  {
-			if (this.velY > -this.speed) {
-				this.velY--;
-			}
-		}
+    //console.log(this.velX);
+    if (this.keys['ArrowUp']) {
+      if (this.velY > -this.speed) {
+        this.velY--;
+        this.velY--;
+      }
+    }
 
-		if (this.keys['ArrowDown']) {
-			if (this.velY < this.speed) {
-				this.velY++;
-			}
-		}
-		if (this.keys['ArrowRight']) {
-			if (this.velX < this.speed) {
-				this.velX++;
-			}
-		}
-		if (this.keys['ArrowLeft']) {
-			if (this.velX > -this.speed) {
-				this.velX--;
-			}
-		}
+    if (this.keys['ArrowDown']) {
+      if (this.velY < this.speed) {
+        this.velY++;
+        this.velY++;
+      }
+    }
+    if (this.keys['ArrowRight']) {
+      if (this.velX < this.speed) {
+        this.velX++;
+        this.velX++;
+      }
+    }
+    if (this.keys['ArrowLeft']) {
+      if (this.velX > -this.speed) {
+        this.velX--;
+        this.velX--;
+      }
+    }
 
-		this.velY *= friction;
-		this.y += this.velY;
-		this.velX *= friction;
-		this.x += this.velX;
+    this.velY *= friction;
+    this.y += this.velY;
+    this.velX *= friction;
+    this.x += this.velX;
 
-	}
+  }
 
   setState(state: allState): void {
     this.state = state;
@@ -94,6 +97,6 @@ export class Btc implements IUnit {
       return (true);
     return (false);
   }
-  moove(): void{}
+  moove(): void {}
 
 }
