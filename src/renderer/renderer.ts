@@ -14,9 +14,12 @@ export class Renderer {
     this.canvasHeight = canvas.height;
   }
 
-  renderBackground(canvasImgSrc: CanvasImageSource): void {
-    this.ctx.moveTo(0, 0);
-    this.ctx.drawImage(canvasImgSrc, this.canvasWidth, this.canvasHeight)
+  renderBackground(): void {
+    let img = new Image();
+    img.onload = () => {
+      this.ctx.drawImage(img, 0, 0, this.canvasWidth, this.canvasHeight)
+    }
+    img.src = 'src/assets/meek.jpg'
   }
 
   renderBtc() {
