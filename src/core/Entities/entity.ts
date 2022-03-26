@@ -31,12 +31,3 @@ export interface IUnit extends IEntity {
 	attack:(amount: number, target: IEntity) => void;
 	canAttack:(target: IEntity) => boolean;
 }
-
-/*	constructor() {
-		this.x = 0;
-		this.y = 0;
-		this.lifeAmount = 0;
-		this.type = entitityType.NULL;
-		this.state = allState.NOMOOVE;
-	}*/
-

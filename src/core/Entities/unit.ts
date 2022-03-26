@@ -1,8 +1,8 @@
 import { allState, allType, IEntity, IUnit } from "./entity";
 
-const LIFE_PUNK          = 50;
-const DEFAULT_SPEED_PUNK = 1;
-const RANGE_PUNK         = 5;
+const LIFE_PUNK  = 50;
+const SPEED_PUNK = 1;
+const RANGE_PUNK = 5;
 
 class PunkUnit implements IUnit {
 	x: number;
@@ -19,7 +19,7 @@ class PunkUnit implements IUnit {
 		this.state = allState.MOOVE;
 		this.type = allType.PUNK;
 		this.lifeAmount = LIFE_PUNK;
-		this.speed = DEFAULT_SPEED_PUNK;
+		this.speed = SPEED_PUNK;
 		this.range = RANGE_PUNK;
 	}
 
@@ -32,7 +32,7 @@ class PunkUnit implements IUnit {
 		if (this.lifeAmount < 1)
 			this.setState(allState.DEAD);
 		else
-			this.setState(allState.TAKEDAMAGE)
+			this.setState(allState.TAKEDAMAGE);
 	}
 
 	moove(x: number, y: number, delta: number): void {
@@ -45,6 +45,11 @@ class PunkUnit implements IUnit {
 	}
 
 	canAttack(target: IEntity): boolean {
-
+		let distance_sqrt = Math.pow(target.x - this.x, 2)
+			+ Math.pow(target.y - this.y, 2);
+		let distance = Math.sqrt(distance_sqrt);
+		if (distance <= this.range)
+			return (true);
+		return (false);
 	}
 }
