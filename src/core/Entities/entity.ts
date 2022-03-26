@@ -1,4 +1,5 @@
 export enum allState {
+	DEAD,
 	NOMOOVE,
 	MOOVE,
 	ATTACK,
@@ -11,16 +12,15 @@ export enum allType {
 	EARTH
 }
 
-interface IEntity {
+export interface IEntity {
 	x: number;
 	y: number;
 	state: allState;
 	type: allType;
 	lifeAmount: number;
 
-	updateState:() => void;
+	setState:(state: allState) => void;
 	takeDamage:(amount: number) => void;
-	die:() => void;
 }
 
 export interface IUnit extends IEntity {
