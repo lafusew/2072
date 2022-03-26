@@ -1,5 +1,12 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../main";
 
+export interface boundingButton {
+  startX: number,
+  startY: number,
+  btnSize: number,
+  btnCount: number
+}
+
 export class BtnRenderer {
   ctx: CanvasRenderingContext2D;
   UNIT_BTN_SIZE: number;
@@ -41,7 +48,7 @@ export class BtnRenderer {
     )
   }
 
-  getUnitsBtnsBounding(): { startX: number, startY: number, btnSize: number, btnCount: number } {
+  getUnitsBtnsBounding(): boundingButton {
     return { startX: this.UNIT_BTN_START_X, startY: this.UNIT_BTN_START_Y, btnSize: this.UNIT_BTN_SIZE, btnCount: this.BTN_COUNT }
   }
 }
