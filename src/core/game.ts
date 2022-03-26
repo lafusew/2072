@@ -1,3 +1,4 @@
+
 import { Renderer } from "../renderer/renderer";
 import { Btc } from "./Entities/bitcoin";
 
@@ -21,6 +22,7 @@ export class Game {
 
     // Render
     this.renderer.renderBackground();
+    this.renderer.renderUnitBtn();
     this.renderer.renderBtc(this.btc)
   }
 }
