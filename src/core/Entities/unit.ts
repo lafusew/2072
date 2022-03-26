@@ -1,4 +1,4 @@
-import { allState, allType, IUnit } from "./entity";
+import { allState, allType, IEntity, IUnit } from "./entity";
 
 const LIFE_PUNK = 50;
 
@@ -16,4 +16,25 @@ class punkUnit implements IUnit {
 		this.type = allType.PUNK;
 		this.lifeAmount = LIFE_PUNK;
 	}
+
+	setState(state: allState): void {
+		this.state = state;
+	}
+
+	takeDamage(amount: number): void {
+		this.lifeAmount -= amount;
+		if (this.lifeAmount < 1)
+			this.setState(allState.DEAD);
+		else
+			this.setState(allState.TAKEDAMAGE)
+	}
+
+	moove(x: number, y: number): void {
+
+	}
+
+	attack(amount: number, target: IEntity): void {
+		target.takeDamage(amount);
+	}
+
 }
