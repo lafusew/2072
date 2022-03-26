@@ -1,6 +1,6 @@
 import { allType, IEntity } from "../core/Entities/entity";
-const BTC_WIDTH = 80;
-const BTC_HEIGHT = 80;
+export const BTC_WIDTH = 80;
+export const BTC_HEIGHT = 80;
 interface SpriteSheets {
   btc: SpriteSheet;
   cryptoPunk: SpriteSheet;

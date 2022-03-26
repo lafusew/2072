@@ -1,4 +1,6 @@
 import { allState, allType, IEntity, IUnit } from "./entity";
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../main";
+import { BTC_HEIGHT, BTC_WIDTH } from "../../renderer/sprite";
 
 const LIFE_BTC = 100;
 const SPEED_BTC = 1000;
@@ -36,11 +38,24 @@ export class Btc implements IUnit {
     });
   }
 
+  collision(): void {
+	if (this.x >= CANVAS_WIDTH - BTC_WIDTH) {
+        this.x = CANVAS_WIDTH - BTC_WIDTH;
+    } else if (this.x <= 0) {
+        this.x = 0;
+    }
+
+    if (this.y > CANVAS_HEIGHT - BTC_HEIGHT) {
+        this.y = CANVAS_HEIGHT - BTC_HEIGHT;
+    } else if (this.y <= 0) {
+        this.y = 0;
+    }
+  }
+
   update(): void {
 
     let friction = 0.9;
 
-    //console.log(this.velX);
     if (this.keys['ArrowUp']) {
       if (this.velY > -this.speed) {
         this.velY--;
@@ -71,6 +86,8 @@ export class Btc implements IUnit {
     this.y += this.velY;
     this.velX *= friction;
     this.x += this.velX;
+
+	this.collision();
 
   }
 
