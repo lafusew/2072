@@ -1,5 +1,6 @@
-import { IEntity } from "../core/Entities/entity";
-
+import { allType, IEntity } from "../core/Entities/entity";
+const BTC_WIDTH = 80;
+const BTC_HEIGHT = 80;
 interface SpriteSheets {
   btc: SpriteSheet;
   cryptoPunk: SpriteSheet;
@@ -28,7 +29,13 @@ export class SpriteRenderer {
   }
 
   renderEntity(entity: IEntity) {
-    this.ctx.drawImage(this.btcSprites, entity.x, entity.y, 80, 80);
+    switch (entity.type) {
+      case allType.BTC:
+        this.ctx.drawImage(this.btcSprites, entity.x, entity.y, BTC_WIDTH, BTC_HEIGHT);
+        break;
+
+      default:
+        break;
+    }
   }
 }
-

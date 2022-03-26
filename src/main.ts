@@ -1,15 +1,15 @@
 import { Game } from './core/game';
 import './style.css';
 
+export const CANVAS_WIDTH = 1270;
+export const CANVAS_HEIGHT = 720;
+
 // HTML Canvas Element setup
 const app = document.querySelector<HTMLDivElement>('#app')!
 const canvas = document.createElement('canvas');
 app.appendChild(canvas);
-canvas.width = 1270
-canvas.height = 720
-
-export const CANVAS_WIDTH = canvas.width;
-export const CANVAS_HEIGHT = canvas.height;
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
 
 let now: number;
 let delta: number;
