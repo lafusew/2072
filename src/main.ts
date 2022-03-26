@@ -11,7 +11,7 @@ app.appendChild(canvas);
 let now: number;
 let delta: number;
 let then = window.performance.now();
-let fps = 6x0;
+let fps = 60;
 let interval = 1000 / fps;
 
 const game = new Game(canvas);
