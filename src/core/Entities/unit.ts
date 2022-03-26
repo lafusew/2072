@@ -1,13 +1,17 @@
 import { allState, allType, IEntity, IUnit } from "./entity";
 
-const LIFE_PUNK = 50;
+const LIFE_PUNK          = 50;
+const DEFAULT_SPEED_PUNK = 1;
+const RANGE_PUNK         = 5;
 
-class punkUnit implements IUnit {
+class PunkUnit implements IUnit {
 	x: number;
 	y: number;
 	state: allState;
 	type: allType;
 	lifeAmount: number;
+	speed: number;
+	range: number;
 
 	constructor(x: number, y: number) {
 		this.x = x;
@@ -15,6 +19,8 @@ class punkUnit implements IUnit {
 		this.state = allState.MOOVE;
 		this.type = allType.PUNK;
 		this.lifeAmount = LIFE_PUNK;
+		this.speed = DEFAULT_SPEED_PUNK;
+		this.range = RANGE_PUNK;
 	}
 
 	setState(state: allState): void {
@@ -29,12 +35,16 @@ class punkUnit implements IUnit {
 			this.setState(allState.TAKEDAMAGE)
 	}
 
-	moove(x: number, y: number): void {
-
+	moove(x: number, y: number, delta: number): void {
+		this.x += Math.sin(this.x - x) * delta * this.speed;
+		this.y += Math.cos(this.y - y) * delta * this.speed;
 	}
 
 	attack(amount: number, target: IEntity): void {
 		target.takeDamage(amount);
 	}
 
+	canAttack(target: IEntity): boolean {
+
+	}
 }
