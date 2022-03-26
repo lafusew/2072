@@ -19,7 +19,7 @@ export class Renderer {
     img.onload = () => {
       this.ctx.drawImage(img, 0, 0, this.canvasWidth, this.canvasHeight)
     }
-    img.src = 'src/assets/meek.jpg'
+    img.src = 'src/assets/background.png'
   }
 
   renderBtc() {
