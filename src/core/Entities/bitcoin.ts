@@ -1,6 +1,6 @@
 import { allState, allType, IEntity, IUnit } from "./entity";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../main";
-import { BTC_HEIGHT, BTC_WIDTH } from "../../renderer/sprite";
+import { Earth } from "./earth";
 
 const LIFE_BTC = 100;
 const SPEED_BTC = 1000;
@@ -9,6 +9,7 @@ const RANGE_BTC = 10;
 export class Btc implements IUnit {
   x: number;
   y: number;
+  size: number;
   state: allState;
   type: allType;
   lifeAmount: number;
@@ -17,9 +18,10 @@ export class Btc implements IUnit {
   velX: number;
   velY: number;
   keys: Record<string, boolean>;
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
+  constructor(x: number, y: number, size: number) {
+    this.x = x + size / 2;
+    this.y = y + size / 2;
+	this.size = size;
     this.velX = 0;
     this.velY = 0;
     this.state = allState.NOMOOVE;
@@ -38,21 +40,40 @@ export class Btc implements IUnit {
     });
   }
 
-  collision(): void {
-	if (this.x >= CANVAS_WIDTH - BTC_WIDTH) {
-        this.x = CANVAS_WIDTH - BTC_WIDTH;
+  wall_collision(): void {
+	if (this.x >= CANVAS_WIDTH - this.size) {
+        this.x = CANVAS_WIDTH - this.size;
     } else if (this.x <= 0) {
         this.x = 0;
     }
 
-    if (this.y > CANVAS_HEIGHT - BTC_HEIGHT) {
-        this.y = CANVAS_HEIGHT - BTC_HEIGHT;
+    if (this.y > CANVAS_HEIGHT - this.size) {
+        this.y = CANVAS_HEIGHT - this.size;
     } else if (this.y <= 0) {
         this.y = 0;
     }
   }
 
-  update(): void {
+  // earth collision: si les 2 rayons sont + grands que la distance b2 = btc b1 = terre
+
+  earth_collision(earth: Earth): void {
+	console.log(this.x);
+	console.log(this.y);
+	const dx = this.x - CANVAS_WIDTH / 2;
+	const dy = this.y - CANVAS_HEIGHT / 2;
+	const dist = Math.sqrt(dx * dx + dy * dy);
+
+	//console.log(dist);
+	if (earth.size / 2 + this.size / 2 >= dist){
+		const nx = dx / dist;
+		const ny = dy / dist;
+
+		this.x = CANVAS_WIDTH / 2 + nx * (this.size / 2 + earth.size / 2);
+		this.y = CANVAS_HEIGHT / 2 + ny * (this.size / 2 + earth.size / 2);
+	}
+  }
+
+  update(earth: Earth): void {
 
     let friction = 0.9;
 
@@ -87,7 +108,8 @@ export class Btc implements IUnit {
     this.velX *= friction;
     this.x += this.velX;
 
-	this.collision();
+	this.wall_collision();
+	this.earth_collision(earth);
 
   }
 

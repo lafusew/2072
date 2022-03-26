@@ -17,14 +17,14 @@ export class Game {
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     this.renderer = new Renderer(this.canvas, this.ctx);
     this.earth = new Earth((canvas.width / 2) - 200, (canvas.height / 2) - 200)
-    this.btc = new Btc(200, 200)
+    this.btc = new Btc(200, 200, 80)
     this.unitManager = new UnitManager(this.renderer.btnRenderer.getUnitsBtnsBounding(), this.canvas);
   }
 
   update(delta: number) {
     // console.log(`delta(elapsed time since last frame): ${delta}`)
     // Logic
-    this.btc.update();
+    this.btc.update(this.earth);
     // Render
     this.renderer.renderBackground();
     this.renderer.renderEarth(this.earth);

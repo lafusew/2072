@@ -1,6 +1,4 @@
 import { allType, IEntity } from "../core/Entities/entity";
-export const BTC_WIDTH = 80;
-export const BTC_HEIGHT = 80;
 interface SpriteSheets {
   btc: SpriteSheet;
   cryptoPunk: SpriteSheet;
@@ -31,7 +29,7 @@ export class SpriteRenderer {
   renderEntity(entity: IEntity) {
     switch (entity.type) {
       case allType.BTC:
-        this.ctx.drawImage(this.btcSprites, entity.x, entity.y, BTC_WIDTH, BTC_HEIGHT);
+        this.ctx.drawImage(this.btcSprites, entity.x - (entity.size as number / 2), entity.y - (entity.size as number / 2), entity.size as number, entity.size as number);
         break;
 
       default:
