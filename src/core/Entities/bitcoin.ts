@@ -37,11 +37,11 @@ export class Btc implements IUnit {
   }
 
 	update(): void {
-		console.log(this.speed);
+		//console.log(this.speed);
 
 		let friction = 0.9;
 
-		console.log(this.velX);
+		//console.log(this.velX);
 		if (this.keys['ArrowUp'])  {
 			if (this.velY > -this.speed) {
 				this.velY--;
@@ -95,5 +95,5 @@ export class Btc implements IUnit {
     return (false);
   }
   moove(): void{}
- 
+
 }
