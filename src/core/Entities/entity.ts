@@ -24,8 +24,12 @@ export interface IEntity {
 }
 
 export interface IUnit extends IEntity {
-	moove:(x: number, y: number) => void;
+	speed: number;
+	range: number;
+	
+	moove:(x: number, y: number, delta: number) => void;
 	attack:(amount: number, target: IEntity) => void;
+	canAttack:(target: IEntity) => boolean;
 }
 
 /*	constructor() {
