@@ -41,20 +41,18 @@ export class Btc implements IUnit {
   }
 
   wall_collision(): void {
-	if (this.x >= CANVAS_WIDTH - this.size) {
-        this.x = CANVAS_WIDTH - this.size;
-    } else if (this.x <= 0) {
-        this.x = 0;
+	if (this.x >= CANVAS_WIDTH - this.size / 2) {
+        this.x = CANVAS_WIDTH - this.size / 2;
+    } else if (this.x <= this.size / 2) {
+        this.x = this.size / 2;
     }
 
-    if (this.y > CANVAS_HEIGHT - this.size) {
-        this.y = CANVAS_HEIGHT - this.size;
-    } else if (this.y <= 0) {
-        this.y = 0;
+    if (this.y > CANVAS_HEIGHT - this.size / 2) {
+        this.y = CANVAS_HEIGHT - this.size / 2;
+    } else if (this.y <= this.size / 2) {
+        this.y = this.size / 2;
     }
   }
-
-  // earth collision: si les 2 rayons sont + grands que la distance b2 = btc b1 = terre
 
   earth_collision(earth: Earth): void {
 	console.log(this.x);
@@ -63,7 +61,6 @@ export class Btc implements IUnit {
 	const dy = this.y - CANVAS_HEIGHT / 2;
 	const dist = Math.sqrt(dx * dx + dy * dy);
 
-	//console.log(dist);
 	if (earth.size / 2 + this.size / 2 >= dist){
 		const nx = dx / dist;
 		const ny = dy / dist;
