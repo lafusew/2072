@@ -1,4 +1,5 @@
 import { Btc } from "../core/Entities/bitcoin";
+import { BtnRenderer } from "./inputs";
 import { SpriteRenderer } from "./sprite";
 
 export class Renderer {
@@ -7,7 +8,10 @@ export class Renderer {
   canvasWidth: number;
   canvasHeight: number;
 
+  backgroundImage: CanvasImageSource;
+
   spriteRenderer: SpriteRenderer;
+  btnRenderer: BtnRenderer;
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -18,14 +22,13 @@ export class Renderer {
     this.canvasWidth = canvas.width;
     this.canvasHeight = canvas.height;
     this.spriteRenderer = new SpriteRenderer(ctx)
+    this.backgroundImage = new Image();
+    this.backgroundImage.src = 'src/assets/background.png'
+    this.btnRenderer = new BtnRenderer(this.ctx);
   }
 
   renderBackground(): void {
-    let img = new Image();
-    img.onload = () => {
-      this.ctx.drawImage(img, 0, 0, this.canvasWidth, this.canvasHeight)
-    }
-    img.src = 'src/assets/background.png'
+    this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvasWidth, this.canvasHeight)
   }
 
   renderBtc(btc: Btc) {
@@ -34,5 +37,9 @@ export class Renderer {
 
   renderNfts() {
 
+  }
+
+  renderUnitBtn() {
+    this.btnRenderer.unitSelectionDisplay();
   }
 }
