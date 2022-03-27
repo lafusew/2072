@@ -50,6 +50,17 @@ export class Game {
     this.clock = 0;
   }
 
+  reset(): void {
+    this.unitManager = new UnitManager(this.renderer.btnRenderer.getUnitsBtnsBounding(), this.canvas, this.earth);
+    this.earth = new Earth((this.canvas.width / 2), (this.canvas.height / 2));
+    this.btc = new Btc(SPAWN_BTC_X, SPAWN_BTC_Y);
+    this.give_upgrade = false;
+    this.end = false;
+    this.year = FIRST_YEAR;
+    this.up_year = FIRST_UP;
+    this.clock = 0;
+  }
+
   async init(addEventListen: () => void, config: { x: number, y: number, size: number }) {
     await this.audio.init();
 

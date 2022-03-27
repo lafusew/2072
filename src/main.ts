@@ -37,6 +37,7 @@ function startGame(e: MouseEvent): void {
     && y >= playBtnPos.y - playBtnPos.size * .5
     && y <= playBtnPos.y + playBtnPos.size * .5
   ) {
+    game.reset();
     run();
     removeEventListener('mouseup', startGame)
   }
