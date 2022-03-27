@@ -116,12 +116,14 @@ export class Game {
         this.btc.attack(element);
         btc_atck = true;
       }
-      if (!element.canAttack(this.earth)) {
+      if (!element.canAttack(this.earth) && element.state != allState.DEAD) {
         element.moove(this.earth.x, this.earth.y, delta);
       }
       else {
         if (element.updateAttack) {
-          element.updateAttack(delta);
+          console.log('bra')
+          console.log(element.type)
+;         element.updateAttack(delta);
         }
         if (element.type == allType.MONKEY)
         {

@@ -1,9 +1,9 @@
 import { allState, allType, IEntity, IUnit } from "../entity";
 
-const LIFE_TANK = 200;
-const SPEED_TANK = 25; // speed punk / 2 ?
+const LIFE_TANK = 240;
+const SPEED_TANK = 30; // speed punk / 2 ?
 const SIZE_TANK = 80;
-const DAMAGE_TANK = 150;
+const DAMAGE_TANK = 250;
 const DELAY_ATTACK = 2; // 0.5 punk
 
 export class TankUnit implements IUnit {
@@ -60,6 +60,13 @@ export class TankUnit implements IUnit {
   }
 
   updateAttack(delta: number): void {
+    if (this.state == allState.DEAD)
+    {
+      if (this.size < 5)
+        this.readyToDelete = true;
+      this.size--;
+      return;
+    }
     this.lastAttack += delta;
   }
 

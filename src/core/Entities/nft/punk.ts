@@ -61,6 +61,13 @@ export class PunkUnit implements IUnit {
   }
 
   updateAttack(delta: number): void {
+    if (this.state == allState.DEAD)
+    {
+      if (this.size < 5)
+        this.readyToDelete = true;
+      this.size--;
+      return;
+    }
     this.lastAttack += delta;
   }
 
