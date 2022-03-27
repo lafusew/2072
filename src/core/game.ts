@@ -52,8 +52,7 @@ export class Game {
         return;
       }
 
-      if (!btc_atck && this.btc.canAttack(element))
-      {
+      if (!btc_atck && this.btc.canAttack(element)) {
         this.btc.attack(element);
         btc_atck = true;
       }
@@ -61,9 +60,10 @@ export class Game {
       if (!element.canAttack(this.earth)) {
         element.moove(this.earth.x, this.earth.y, delta);
       }
-      else
-      {
-        element.updateAttack(delta);
+      else {
+        if (element.updateAttack) {
+          element.updateAttack(delta);
+        }
         element.attack(this.earth);
       }
     }

@@ -69,7 +69,18 @@ export class Renderer {
     const x = (this.canvasWidth / 2) - (this.lifeFrameImage.width as number / 2);
     const y = 0;
     const lifePercentagePixel = earth.lifeAmount * (this.lifeFrameImage.width as number) / LIFE_EARTH;
-    this.ctx.fillStyle = 'red';
+
+    this.ctx.fillStyle = '#23bd16';
+
+    if (earth.lifeAmount < LIFE_EARTH * .66) {
+      this.ctx.fillStyle = '#e77018';
+    }
+
+    if (earth.lifeAmount < LIFE_EARTH * .33) {
+      this.ctx.fillStyle = '#fb2020';
+    }
+
+
     this.ctx.fillRect(x, y, lifePercentagePixel, this.lifeFrameImage.height as number);
 
     this.ctx.drawImage(this.lifeFrameImage, x, y);
