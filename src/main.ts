@@ -2,7 +2,7 @@ import { Game } from './core/game';
 import './style.css';
 
 export const CANVAS_WIDTH = 1280;
-export const CANVAS_HEIGHT = 720;
+export const CANVAS_HEIGHT = 960;
 
 // HTML Canvas Element setup
 const MAX_FPS = 1000;

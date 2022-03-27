@@ -1,13 +1,15 @@
-import { allState, allType, IEntity, IUnit } from "./entity";
+import { allState, allType, IEntity, IUnit } from "../entity";
+import { UnitManager } from "../unitmanager";
+import { BananaUnit } from "./banana";
 
-const LIFE_PUNK = 50;
-const SPEED_PUNK = 50;
-const SIZE_PUNK = 50;
-const DAMAGE_PUNK = 50;
-const DELAY_ATTACK = 0.5;
+const LIFE_MONKEY = 10;
+const SPEED_MONKEY = 1;
+const SIZE_MONKEY = 100;
+const DAMAGE_MONKEY = 0;
+const DELAY_ATTACK = 0.3;
 
 
-export class PunkUnit implements IUnit {
+export class MonkeyUnit implements IUnit {
   x: number;
   y: number;
   state: allState;
@@ -18,18 +20,22 @@ export class PunkUnit implements IUnit {
   range: number;
   damage: number;
   lastAttack: number;
+  radiusEarth: number;
+  readyToDelete: boolean;
 
   constructor(x: number, y: number, radiusEarth: number) {
-    this.size = SIZE_PUNK;
+    this.size = SIZE_MONKEY;
     this.x = x;
     this.y = y;
-    this.state = allState.MOOVE;
-    this.type = allType.PUNK;
-    this.lifeAmount = LIFE_PUNK;
-    this.speed = SPEED_PUNK;
-    this.range = radiusEarth * 1.2;
-    this.damage = DAMAGE_PUNK;
+    this.state = allState.ATTACK;
+    this.type = allType.MONKEY;
+    this.lifeAmount = LIFE_MONKEY;
+    this.speed = SPEED_MONKEY;
+    this.range = 100000;
+    this.radiusEarth = radiusEarth;
+    this.damage = DAMAGE_MONKEY;
     this.lastAttack = 0;
+    this.readyToDelete = false;
   }
 
   setState(state: allState): void {
@@ -47,7 +53,7 @@ export class PunkUnit implements IUnit {
   moove(x: number, y: number, delta: number): void {
     if (this.state == allState.DEAD)
       return;
-    this.speed = SPEED_PUNK * delta;
+    this.speed = SPEED_MONKEY * delta;
     let dx = x - this.x;
     let dy = y - this.y;
 
@@ -71,15 +77,20 @@ export class PunkUnit implements IUnit {
     }
   }
 
+  attackBanana(units: UnitManager): void {
+    if (this.state == allState.DEAD)
+      return;
+    if (this.lastAttack > DELAY_ATTACK) {
+        units.spawnBanana(this.x, this.y);
+        console.log('NEW BANANA')
+        this.lastAttack = 0;
+   }
+  }
+
   canAttack(target: IEntity): boolean {
     if (this.state == allState.DEAD || target.state == allState.DEAD)
       return (false);
-    let distance_sqrt = Math.pow(target.x - this.x, 2)
-      + Math.pow(target.y - this.y, 2);
-    let distance = Math.sqrt(distance_sqrt);
-    if (distance <= this.range)
-      return (true);
-    return (false);
+    return (true);
   }
 
 }
