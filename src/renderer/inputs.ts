@@ -21,11 +21,13 @@ export class BtnRenderer {
   frameSelected: CanvasImageSource;
   frameUnselected: CanvasImageSource;
   punk: CanvasImageSource;
+  tank: CanvasImageSource;
   monkey: CanvasImageSource;
 
-  constructor(ctx: CanvasRenderingContext2D, punk: CanvasImageSource, monkey: CanvasImageSource) {
+  constructor(ctx: CanvasRenderingContext2D, punk: CanvasImageSource, tank: CanvasImageSource, monkey: CanvasImageSource) {
     this.ctx = ctx;
     this.punk = punk;
+    this.tank = tank;
     this.monkey = monkey;
 
     this.UNIT_BTN_SIZE = 100;
@@ -59,11 +61,18 @@ export class BtnRenderer {
 
 
     this.ctx.drawImage(
-      selected == typeSelect.IDONTKNOW ? this.frameSelected : this.frameUnselected,
+      selected == typeSelect.TANK ? this.frameSelected : this.frameUnselected,
       this.UNIT_BTN_START_X,
       this.UNIT_BTN_START_Y + this.UNIT_BTN_SIZE,
       this.UNIT_BTN_SIZE,
       this.UNIT_BTN_SIZE
+    );
+    this.ctx.drawImage(
+      this.tank,
+      this.UNIT_BTN_START_X + BTN_PADDING,
+      this.UNIT_BTN_START_Y + this.UNIT_BTN_SIZE + BTN_PADDING,
+      this.UNIT_BTN_SIZE - BTN_PADDING * 2,
+      this.UNIT_BTN_SIZE - BTN_PADDING * 2
     );
 
     this.ctx.drawImage(

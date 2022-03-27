@@ -16,6 +16,7 @@ export class Renderer {
   backgroundImage: CanvasImageSource;
   earthImages: CanvasImageSource[];
   punkImage: CanvasImageSource;
+  tankImage: CanvasImageSource;
   monkeyImage: CanvasImageSource;
   bananaImage: CanvasImageSource;
   lifeFrameImage: CanvasImageSource;
@@ -38,6 +39,8 @@ export class Renderer {
 
     this.punkImage = new Image();
     this.punkImage.src = 'src/assets/cryptopunk.png';
+    this.tankImage = new Image();
+    this.tankImage.src = 'src/assets/tank.png';
     this.monkeyImage = new Image();
     this.monkeyImage.src = 'src/assets/monkey.png';
     this.bananaImage = new Image();
@@ -47,8 +50,7 @@ export class Renderer {
     this.ethImage = new Image();
     this.ethImage.src = 'src/assets/eth.png'
 
-    this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage, this.monkeyImage, this.bananaImage);
-
+    this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage, this.tankImage, this.monkeyImage, this.bananaImage);
     this.earthImages = this.spriteRenderer.loadAnimationSprites(EARTH_SPRITES, 'animated_earth/');
     this.btnRenderer = new BtnRenderer(this.ctx, this.punkImage, this.monkeyImage);
   }
