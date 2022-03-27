@@ -1,6 +1,7 @@
 import { allState, allType, IEntity } from "./entity";
 
-const LIFE_EARTH = 50;
+
+export const LIFE_EARTH = 50;
 const SIZE_EARTH = 300;
 
 export class Earth implements IEntity {

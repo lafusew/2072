@@ -129,8 +129,6 @@ export class Btc implements IUnit {
   }
 
   attack(target: IEntity): void {
-    console.log("\n\nthis.lastAttack" + this.lastAttack);
-    console.log("DELAY_ATTACK" + DELAY_ATTACK);
     if (this.lastAttack > DELAY_ATTACK)
     {
       target.takeDamage(this.damage);

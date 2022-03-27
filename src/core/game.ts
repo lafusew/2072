@@ -48,7 +48,6 @@ export class Game {
       {
         this.btc.attack(element);
         btc_atck = true;
-        console.log(element.state);
       }
 
       if (!element.canAttack(this.earth)) {
