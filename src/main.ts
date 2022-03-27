@@ -14,10 +14,9 @@ canvas.height = CANVAS_HEIGHT;
 
 let now: number;
 let delta: number;
-let then = window.performance.now();
+let then = 0;
 let fps = MAX_FPS;
 let interval = 1000 / fps;
-
 const game = new Game(canvas);
 
 const playBtnPos = {
@@ -30,7 +29,6 @@ function startGame(e: MouseEvent): void {
   let rect = canvas.getBoundingClientRect();
   const x = e.x - rect.left;
   const y = e.y - rect.top;
-  console.log(x, y)
   if (
     x >= playBtnPos.x - playBtnPos.size * .5
     && x <= playBtnPos.x + playBtnPos.size * .5
@@ -38,8 +36,8 @@ function startGame(e: MouseEvent): void {
     && y <= playBtnPos.y + playBtnPos.size * .5
   ) {
     game.reset();
-    run();
-    removeEventListener('mouseup', startGame)
+    run(then);
+    canvas.removeEventListener('mouseup', startGame)
   }
 }
 
@@ -50,13 +48,11 @@ function addEventListen() {
 game.init(addEventListen, playBtnPos);
 
 
-function run() {
+function run(then: number) {
   requestAnimationFrame(run);
 
   now = window.performance.now();
   delta = now - then;
-  // How it works here:
-  // https://gist.github.com/elundmark/38d3596a883521cb24f5
   if (delta > interval) {
     then = now - (delta % interval);
     game.update(delta / 1000);
