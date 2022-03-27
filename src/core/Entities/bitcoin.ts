@@ -2,11 +2,12 @@ import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../main";
 import { Earth } from "./earth";
 import { allState, allType, IEntity, IUnit } from "./entity";
 
-const LIFE_BTC   = 100;
-const SPEED_BTC  = 1000;
-const DAMAGE_BTC = 25;
-const RANGE_BTC  = 60;
-const SIZE_BTC   = 60;
+const LIFE_BTC     = 100;
+const SPEED_BTC    = 1000;
+const DAMAGE_BTC   = 25;
+const RANGE_BTC    = 60;
+const SIZE_BTC     = 60;
+const DELAY_ATTACK = 0.2;
 
 export class Btc implements IUnit {
   x: number;
@@ -21,6 +22,7 @@ export class Btc implements IUnit {
   velX: number;
   velY: number;
   keys: Record<string, boolean>;
+  lastAttack: number;
 
   constructor(x: number, y: number) {
     this.size = SIZE_BTC;
@@ -35,6 +37,7 @@ export class Btc implements IUnit {
     this.range = RANGE_BTC;
     this.damage = DAMAGE_BTC;
     this.keys = {}
+    this.lastAttack = 0;
 
     window.addEventListener('keydown', (e) => {
       this.keys[e.key] = true;
@@ -73,8 +76,9 @@ export class Btc implements IUnit {
     }
   }
 
-  update(earth: Earth): void {
+  update(earth: Earth, delta: number): void {
     let friction = 0.9;
+    this.lastAttack += delta;
 
     if (this.keys['ArrowUp']) {
       if (this.velY > -this.speed) {
@@ -123,11 +127,20 @@ export class Btc implements IUnit {
     else
       this.setState(allState.TAKEDAMAGE);
   }
-  attack(amount: number, target: IEntity): void {
-    target.takeDamage(amount);
+
+  attack(target: IEntity): void {
+    console.log("\n\nthis.lastAttack" + this.lastAttack);
+    console.log("DELAY_ATTACK" + DELAY_ATTACK);
+    if (this.lastAttack > DELAY_ATTACK)
+    {
+      target.takeDamage(this.damage);
+      this.lastAttack = 0;
+    }
   }
 
   canAttack(target: IEntity): boolean {
+    if (this.state == allState.DEAD || target.state == allState.DEAD)
+       return (false);
     let distance_sqrt = Math.pow(target.x - this.x, 2)
       + Math.pow(target.y - this.y, 2);
     let distance = Math.sqrt(distance_sqrt);

@@ -2,6 +2,7 @@
 import { Renderer } from "../renderer/renderer";
 import { Btc } from "./Entities/bitcoin";
 import { Earth } from "./Entities/earth";
+import { allState } from "./Entities/entity";
 import { UnitManager } from "./Entities/unitmanager";
 import { AudioManager } from "./sound/soundManager";
 
@@ -29,7 +30,7 @@ export class Game {
     this.renderer = new Renderer(this.canvas, this.ctx);
     this.earth = new Earth((canvas.width / 2), (canvas.height / 2));
     this.btc = new Btc(SPAWN_BTC_X, SPAWN_BTC_Y);
-    this.unitManager = new UnitManager(this.renderer.btnRenderer.getUnitsBtnsBounding(), this.canvas, this.earth.size / 2);
+    this.unitManager = new UnitManager(this.renderer.btnRenderer.getUnitsBtnsBounding(), this.canvas, this.earth);
     this.audio = new AudioManager(SOUNDS_MAP);
   }
 
@@ -39,19 +40,22 @@ export class Game {
 
   update(delta: number) {
     let btc_atck = false;
-    // console.log(`delta(elapsed time since last frame): ${delta}`)
     // Logic
-    this.btc.update(this.earth);
+    this.btc.update(this.earth, delta);
 
     this.unitManager.getUnits().forEach(element => {
-      if (!btc_atck && this.btc.canAttack(element)) {
-        element.takeDamage(this.btc.damage);
+      if (!btc_atck && this.btc.canAttack(element))
+      {
+        this.btc.attack(element);
+        btc_atck = true;
         console.log(element.state);
       }
 
       if (!element.canAttack(this.earth)) {
         element.moove(this.earth.x, this.earth.y, delta);
       }
+      else
+        ;// TO DO ATTACK EARTH
     });
     // Render
     this.renderer.renderBackground();

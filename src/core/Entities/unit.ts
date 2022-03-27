@@ -2,7 +2,7 @@ import { Earth } from "./earth";
 import { allState, allType, IEntity, IUnit } from "./entity";
 
 const LIFE_PUNK   = 50;
-const SPEED_PUNK  = 100;
+const SPEED_PUNK  = 50;
 const SIZE_PUNK   = 50;
 const DAMAGE_PUNK = 50;
 
@@ -42,6 +42,8 @@ export class PunkUnit implements IUnit {
   }
 
   moove(x: number, y: number, delta: number): void {
+    if (this.state == allState.DEAD)
+      return ;
     this.speed = SPEED_PUNK * delta;
     let dx = x - this.x;
     let dy = y - this.y;
@@ -53,11 +55,13 @@ export class PunkUnit implements IUnit {
     this.y += step * dy;
   }
 
-  attack(amount: number, target: IEntity): void {
-    target.takeDamage(amount);
+  attack(target: IEntity): void {
+    target.takeDamage(this.damage);
   }
 
   canAttack(target: IEntity): boolean {
+    if (this.state == allState.DEAD || target.state == allState.DEAD)
+      return (false);
     let distance_sqrt = Math.pow(target.x - this.x, 2)
       + Math.pow(target.y - this.y, 2);
     let distance = Math.sqrt(distance_sqrt);

@@ -1,5 +1,6 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../main";
 import { boundingButton } from "../../renderer/inputs";
+import { Earth } from "./earth";
 import { IUnit } from "./entity";
 import { PunkUnit } from "./unit";
 
@@ -7,7 +8,8 @@ export const PUNK_PRICE = 10;
 export const IDONTKNOW_PRICE = 25;
 export const MONKEY_PRICE = 50;
 
-const ETH_START = 3000000;
+const ETH_START   = 3000000;
+const RANGE_SPAWN = 300;
 
 
 export enum typeSelect {
@@ -23,24 +25,24 @@ export class UnitManager {
   bounding: boundingButton;
   canvas: HTMLCanvasElement;
   units: IUnit[];
-  earthRadius: number;
+  earth: Earth;
 
 
-  constructor(bounding: boundingButton, canvas: HTMLCanvasElement, earthRadius: number) {
+  constructor(bounding: boundingButton, canvas: HTMLCanvasElement, earth: Earth) {
     this.canvas = canvas;
     this.canvas.addEventListener('mouseup', this.controler.bind(this));
 
     this.selected = typeSelect.NULL;	// TODO SELECTION
     this.etherum = ETH_START;
     this.bounding = bounding;
-    this.earthRadius = earthRadius;
+    this.earth = earth;
     this.units = [];
   }
 
   private spawnPunk(x: number, y: number): void {
     if (this.etherum >= PUNK_PRICE) {
       this.etherum -= PUNK_PRICE;
-      const punk = new PunkUnit(x, y, this.earthRadius);
+      const punk = new PunkUnit(x, y, this.earth.size / 2);
       this.units.push(punk);
       //console.log('spawned');
     }
@@ -57,6 +59,11 @@ export class UnitManager {
 
 
   private spawnNft(x: number, y: number): void {
+    let distance_sqrt = Math.pow(this.earth.x - x, 2)
+      + Math.pow(this.earth.y - y, 2);
+    let distance_mid = Math.sqrt(distance_sqrt);
+    if (distance_mid < RANGE_SPAWN)
+      return ;
     switch (this.selected) {
       case typeSelect.PUNK:
         this.spawnPunk(x, y);
