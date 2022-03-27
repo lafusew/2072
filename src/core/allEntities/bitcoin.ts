@@ -6,7 +6,7 @@ const LIFE_BTC = 100;
 const SPEED_BTC = 0.2;
 const DAMAGE_BTC = 40;
 const RANGE_BTC = 60;
-const SIZE_BTC = 20;
+const SIZE_BTC = 40;
 const DELAY_ATTACK = 0.3;
 
 export class Btc implements IUnit {

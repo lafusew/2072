@@ -65,6 +65,13 @@ export class MonkeyUnit implements IUnit {
   }
 
   updateAttack(delta: number): void {
+    if (this.state == allState.DEAD)
+    {
+      if (this.size < 5)
+        this.readyToDelete = true;
+      this.size--;
+      return;
+    }
     this.lastAttack += delta;
   }
 
@@ -82,7 +89,6 @@ export class MonkeyUnit implements IUnit {
       return;
     if (this.lastAttack > DELAY_ATTACK) {
         units.spawnBanana(this.x, this.y);
-        console.log('NEW BANANA')
         this.lastAttack = 0;
    }
   }

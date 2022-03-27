@@ -1,12 +1,13 @@
 import { allState, allType, IEntity, IUnit } from "../entity";
 
-const LIFE_TANK = 200;
-const SPEED_TANK = 25; // speed punk / 2 ?
-const SIZE_TANK = 80;
-const DAMAGE_TANK = 150;
-const DELAY_ATTACK = 2; // 0.5 punk
+const LIFE_PUNK = 50;
+const SPEED_PUNK = 50;
+const SIZE_PUNK = 50;
+const DAMAGE_PUNK = 50;
+const DELAY_ATTACK = 0.5;
 
-export class TankUnit implements IUnit {
+
+export class PunkUnit implements IUnit {
   x: number;
   y: number;
   state: allState;
@@ -20,15 +21,15 @@ export class TankUnit implements IUnit {
   readyToDelete: boolean;
 
   constructor(x: number, y: number, radiusEarth: number) {
-    this.size = SIZE_TANK;
+    this.size = SIZE_PUNK;
     this.x = x;
     this.y = y;
     this.state = allState.MOOVE;
-    this.type = allType.TANK;
-    this.lifeAmount = LIFE_TANK;
-    this.speed = SPEED_TANK;
+    this.type = allType.PUNK;
+    this.lifeAmount = LIFE_PUNK;
+    this.speed = SPEED_PUNK;
     this.range = radiusEarth * 1.2;
-    this.damage = DAMAGE_TANK;
+    this.damage = DAMAGE_PUNK;
     this.lastAttack = 0;
     this.readyToDelete = false;
   }
@@ -48,7 +49,7 @@ export class TankUnit implements IUnit {
   moove(x: number, y: number, delta: number): void {
     if (this.state == allState.DEAD)
       return;
-    this.speed = SPEED_TANK * delta;
+    this.speed = SPEED_PUNK * delta;
     let dx = x - this.x;
     let dy = y - this.y;
 
@@ -60,6 +61,13 @@ export class TankUnit implements IUnit {
   }
 
   updateAttack(delta: number): void {
+    if (this.state == allState.DEAD)
+    {
+      if (this.size < 5)
+        this.readyToDelete = true;
+      this.size--;
+      return;
+    }
     this.lastAttack += delta;
   }
 

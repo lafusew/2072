@@ -1,4 +1,4 @@
-import { typeSelect } from "../core/entities/unitmanager";
+import { typeSelect } from "../core/allEntities/unitmanager";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../main";
 
 const BTN_PADDING = 20;

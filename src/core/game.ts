@@ -1,10 +1,10 @@
 
 import { Renderer } from "../renderer/renderer";
-import { Btc } from "./entities/bitcoin";
-import { Earth } from "./entities/earth";
-import { allState, allType } from "./entities/entity";
-import { MonkeyUnit } from "./entities/nft/monkey";
-import { UnitManager } from "./entities/unitmanager";
+import { Btc } from "./allEntities/bitcoin";
+import { Earth } from "./allEntities/earth";
+import { allState, allType } from "./allEntities/entity";
+import { MonkeyUnit } from "./allEntities/nft/monkey";
+import { UnitManager } from "./allEntities/unitmanager";
 import { AudioManager } from "./sound/soundManager";
 
 
@@ -57,7 +57,6 @@ export class Game {
 
     // @ts-ignore: Unreachable code error. fonts.add does exist
     document.fonts.add(font);
-    console.log('Font loaded');
     this.ctx.font = "40px Minimal"; // set font
   }
 
@@ -81,14 +80,11 @@ export class Game {
     this.btc.speed += 0.2;
     this.btc.size += 2;
     this.btc.range += 1;
-
-    //console.log('eth = ' + this.unitManager.etherum);
   }
 
   private halvingYear(): void {
     this.up_year += 4;
     this.unitManager.addEtherum( Math.floor(this.unitManager.getEtherum() * 0.3) );
-    //console.log('eth = ' + this.unitManager.etherum);
   }
 
 
@@ -116,12 +112,12 @@ export class Game {
         this.btc.attack(element);
         btc_atck = true;
       }
-      if (!element.canAttack(this.earth)) {
+      if (!element.canAttack(this.earth) && element.state != allState.DEAD) {
         element.moove(this.earth.x, this.earth.y, delta);
       }
       else {
         if (element.updateAttack) {
-          element.updateAttack(delta);
+;         element.updateAttack(delta);
         }
         if (element.type == allType.MONKEY)
         {
