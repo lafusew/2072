@@ -96,8 +96,6 @@ export class SpriteRenderer {
     this.ctx.rotate(config.angle * Math.PI / 180);
     const now = window.performance.now();
 
-    // ???
-    console.log("config.size: " + config.size)
     if (!!imgList[Math.round(now / config.changespeed) % imgList.length]) {
       this.ctx.drawImage(
         imgList[Math.round(now / config.changespeed) % imgList.length],

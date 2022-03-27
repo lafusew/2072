@@ -22,6 +22,7 @@ Run `yarn dev` and go to http://localhost:3000
 	- dessiner zone de spwn
 - ANIMATION
 	- mort nft
+- SON
 - SCENES
 	- fin de la partie (victoir btc ou nft)
 	- menu
