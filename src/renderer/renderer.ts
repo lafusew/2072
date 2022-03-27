@@ -53,7 +53,7 @@ export class Renderer {
     });
   }
 
-  renderUnitBtn(type: typeSelect,) {
+  renderUnitBtn(type: typeSelect) {
     this.btnRenderer.unitSelectionDisplay(type);
   }
 

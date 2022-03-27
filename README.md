@@ -19,9 +19,7 @@ Run `yarn install` at the root of this directory. It will install all javascript
 Run `yarn dev` and go to http://localhost:3000
 
 - ZONE DE SPAWN
-	- check si nft peut etre deposer
 	- dessiner zone de spwn
-- INTERFACE NFT
 - ANIMATION
 	- mort nft
 	- attaque du btc
