@@ -21,6 +21,7 @@ Run `yarn dev` and go to http://localhost:3000
 - ZONE DE SPAWN
 	- dessiner zone de spwn
 - ANIMATION
+	- tourner les nft direction terre
 	- mort nft
 	- attaque du btc
 	- terre qui tourne
