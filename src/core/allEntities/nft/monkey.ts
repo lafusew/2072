@@ -1,8 +1,7 @@
 import { allState, allType, IEntity, IUnit } from "../entity";
 import { UnitManager } from "../unitmanager";
-import { BananaUnit } from "./banana";
 
-const LIFE_MONKEY = 10;
+const LIFE_MONKEY = 60;
 const SPEED_MONKEY = 1;
 const SIZE_MONKEY = 100;
 const DAMAGE_MONKEY = 0;
@@ -65,8 +64,7 @@ export class MonkeyUnit implements IUnit {
   }
 
   updateAttack(delta: number): void {
-    if (this.state == allState.DEAD)
-    {
+    if (this.state == allState.DEAD) {
       if (this.size < 5)
         this.readyToDelete = true;
       this.size--;
@@ -88,9 +86,9 @@ export class MonkeyUnit implements IUnit {
     if (this.state == allState.DEAD)
       return;
     if (this.lastAttack > DELAY_ATTACK) {
-        units.spawnBanana(this.x, this.y);
-        this.lastAttack = 0;
-   }
+      units.spawnBanana(this.x, this.y);
+      this.lastAttack = 0;
+    }
   }
 
   canAttack(target: IEntity): boolean {

@@ -4,7 +4,7 @@ const EARTH_SPRITES = ['earth_0.gif', 'earth_1.gif', 'earth_2.gif', 'earth_3.gif
 const BTC_SPRITES = ['btc_attack_0.gif', 'btc_attack_1.gif', 'btc_attack_2.gif', 'btc_attack_3.gif', 'btc_attack_4.gif'];
 const MONKEY_SPRITES = ['monkey_0.gif', 'monkey_1.gif'];
 const PUNK_SPRITES = ['punk_0.gif', 'punk_1.gif'];
-const BANANA_SPRITES = ['banana.png'];
+const BANANA_SPRITES = ['banana_0.png', 'banana_1.png', 'banana_2.png', 'banana_3.png'];
 const TANK_SPRITES = ['tank_0.gif', 'tank_1.gif'];
 
 export class SpriteRenderer {
@@ -65,7 +65,8 @@ export class SpriteRenderer {
         break;
 
       case allType.BANANA:
-        this.ctx.drawImage(this.bananaSprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+        this.renderAnimatedEntity(entity, this.bananaSprites, 200);
+        // this.ctx.drawImage(this.bananaSprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         break;
 
       default:
