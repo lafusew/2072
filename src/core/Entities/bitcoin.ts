@@ -2,11 +2,11 @@ import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../main";
 import { Earth } from "./earth";
 import { allState, allType, IEntity, IUnit } from "./entity";
 
-const LIFE_BTC     = 100;
-const SPEED_BTC    = 0.2;
-const DAMAGE_BTC   = 25;
-const RANGE_BTC    = 60;
-const SIZE_BTC     = 20;
+const LIFE_BTC = 100;
+const SPEED_BTC = 0.2;
+const DAMAGE_BTC = 25;
+const RANGE_BTC = 60;
+export const SIZE_BTC = 20;
 const DELAY_ATTACK = 0.1;
 
 export class Btc implements IUnit {
@@ -134,9 +134,8 @@ export class Btc implements IUnit {
 
   attack(target: IEntity): void {
     if (this.state == allState.DEAD || target.state == allState.DEAD)
-      return ;
-    if (this.lastAttack > DELAY_ATTACK)
-    {
+      return;
+    if (this.lastAttack > DELAY_ATTACK) {
       this.state = allState.ATTACK;
       target.takeDamage(this.damage);
       this.lastAttack = 0;
@@ -145,7 +144,7 @@ export class Btc implements IUnit {
 
   canAttack(target: IEntity): boolean {
     if (this.state == allState.DEAD || target.state == allState.DEAD)
-       return (false);
+      return (false);
     let distance_sqrt = Math.pow(target.x - this.x, 2)
       + Math.pow(target.y - this.y, 2);
     let distance = Math.sqrt(distance_sqrt);

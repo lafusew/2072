@@ -22,9 +22,6 @@ Run `yarn dev` and go to http://localhost:3000
 	- dessiner zone de spwn
 - ANIMATION
 	- mort nft
-	- attaque du btc
-	- tourner les nft direction terre
-- CREER LES 1 AUTRES NFT
 - SCENES
 	- fin de la partie (victoir btc ou nft)
 	- menu
