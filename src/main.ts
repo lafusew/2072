@@ -5,6 +5,7 @@ export const CANVAS_WIDTH = 1280;
 export const CANVAS_HEIGHT = 720;
 
 // HTML Canvas Element setup
+const MAX_FPS = 1000;
 const app = document.querySelector<HTMLDivElement>('#app')!
 const canvas = document.createElement('canvas');
 app.appendChild(canvas);
@@ -14,7 +15,7 @@ canvas.height = CANVAS_HEIGHT;
 let now: number;
 let delta: number;
 let then = window.performance.now();
-let fps = 60;
+let fps = MAX_FPS;
 let interval = 1000 / fps;
 
 const game = new Game(canvas);

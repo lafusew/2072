@@ -4,11 +4,11 @@ import { Earth } from "./earth";
 import { IUnit } from "./entity";
 import { PunkUnit } from "./unit";
 
-export const PUNK_PRICE = 10;
-export const IDONTKNOW_PRICE = 25;
-export const MONKEY_PRICE = 50;
+export const PUNK_PRICE      = 1;
+export const IDONTKNOW_PRICE = 2.5;
+export const MONKEY_PRICE    = 5;
 
-const ETH_START   = 3000000;
+const ETH_START   = 0;
 const RANGE_SPAWN = 300;
 
 
