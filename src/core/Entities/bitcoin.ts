@@ -3,11 +3,11 @@ import { Earth } from "./earth";
 import { allState, allType, IEntity, IUnit } from "./entity";
 
 const LIFE_BTC     = 100;
-const SPEED_BTC    = 1000;
+const SPEED_BTC    = 0.2;
 const DAMAGE_BTC   = 25;
 const RANGE_BTC    = 60;
-const SIZE_BTC     = 60;
-const DELAY_ATTACK = 0.2;
+const SIZE_BTC     = 20;
+const DELAY_ATTACK = 0.1;
 
 export class Btc implements IUnit {
   x: number;

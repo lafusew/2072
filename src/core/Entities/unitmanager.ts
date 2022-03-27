@@ -8,8 +8,9 @@ export const PUNK_PRICE      = 1;
 export const IDONTKNOW_PRICE = 2.5;
 export const MONKEY_PRICE    = 5;
 
-const ETH_START   = 0;
-const RANGE_SPAWN = 300;
+const MAX_WALLET_DEFAULT  = 5;
+const ETH_START           = 0;
+const RANGE_SPAWN         = 300;
 
 
 export enum typeSelect {
@@ -26,6 +27,7 @@ export class UnitManager {
   canvas: HTMLCanvasElement;
   units: IUnit[];
   earth: Earth;
+  max_wallet: number;
 
 
   constructor(bounding: boundingButton, canvas: HTMLCanvasElement, earth: Earth) {
@@ -33,6 +35,7 @@ export class UnitManager {
     this.canvas.addEventListener('mouseup', this.controler.bind(this));
 
     this.selected = typeSelect.NULL;	// TODO SELECTION
+    this.max_wallet = MAX_WALLET_DEFAULT;
     this.etherum = ETH_START;
     this.bounding = bounding;
     this.earth = earth;
@@ -72,7 +75,10 @@ export class UnitManager {
   }
 
   addEtherum(nb: number): void {
-    this.etherum += nb;
+    if (this.etherum + nb >= this.max_wallet)
+      this.etherum = this.max_wallet;
+    else
+      this.etherum += nb;
   }
 
   getEtherum(): number {

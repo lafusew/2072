@@ -28,10 +28,12 @@ export class Game {
   audio: AudioManager;
   end: boolean;
   year: number;
+  give_upgrade: boolean;
   up_year: number;
   clock: number;
 
   constructor(canvas: HTMLCanvasElement) {
+    this.give_upgrade = false;
     this.end = false;
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
@@ -42,6 +44,7 @@ export class Game {
     this.unitManager = new UnitManager(this.renderer.btnRenderer.getUnitsBtnsBounding(), this.canvas, this.earth);
     this.audio = new AudioManager(SOUNDS_MAP);
     this.year = FIRST_YEAR;
+
     this.up_year = FIRST_UP;
     this.clock = 0;
   }
@@ -61,20 +64,29 @@ export class Game {
     this.clock += delta;
     if (this.clock > 2)
     {
+      this.give_upgrade = false;
       ++this.year;
       this.clock -= 2;
     }
   }
 
   private upgradeYear(): void {
+    this.give_upgrade = true;
     if (this.year >= 2015)
-      this.unitManager.addEtherum(Math.floor(((this.year - 2000) / 3)));
+    {
+      this.unitManager.max_wallet += 1;
+      this.unitManager.addEtherum(Math.floor(((this.year - 2000) / 10)));
+    }
+    this.btc.speed += 0.2;
+    this.btc.size += 2;
+    this.btc.range += 1;
+
     //console.log('eth = ' + this.unitManager.etherum);
   }
 
   private halvingYear(): void {
     this.up_year += 4;
-    this.unitManager.addEtherum( this.unitManager.getEtherum() * 0.5 );
+    this.unitManager.addEtherum( Math.floor(this.unitManager.getEtherum() * 0.3) );
     //console.log('eth = ' + this.unitManager.etherum);
   }
 
@@ -82,11 +94,19 @@ export class Game {
   update(delta: number) {
     let btc_atck = false;
     // Logic
+    if (this.year == LAST_YEAR || this.earth.state == allState.DEAD)
+    {
+      this.end = true;
+      return;
+    }
     this.updateYear(delta)
 
-    this.upgradeYear();
-    if (this.year == this.up_year)
-      this.halvingYear();
+    if (!this.give_upgrade)
+    {
+      this.upgradeYear();
+      if (this.year == this.up_year)
+        this.halvingYear();
+    }
 
     this.btc.update(this.earth, delta);
 
@@ -105,19 +125,13 @@ export class Game {
         element.attack(this.earth);
       }
     });
-
-    if (this.year == LAST_YEAR || this.earth.state == allState.DEAD)
-    {
-      this.end = true;
-      return;
-    }
     // Render
     this.renderer.renderBackground();
     this.renderer.renderEarth(this.earth);
     this.renderer.renderUnitBtn(this.unitManager.getSelected());
     this.renderer.renderNfts(this.unitManager.getUnits());
-    this.renderer.renderEthCount(this.unitManager.getEtherum());
-    this.renderer.renderYear(2003)
-    this.renderer.renderBtc(this.btc)
+    this.renderer.renderEthCount(this.unitManager.getEtherum(), this.unitManager.max_wallet);
+    this.renderer.renderYear(this.year);
+    this.renderer.renderBtc(this.btc);
   }
 }

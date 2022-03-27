@@ -89,10 +89,14 @@ export class Renderer {
     this.ctx.drawImage(this.lifeFrameImage, x, y);
   }
 
-  renderEthCount(eth: number) {
+  renderEthCount(eth: number, maxWallet: number) {
     this.ctx.drawImage(this.ethImage, this.canvasWidth - 90, 20);
     this.ctx.textAlign = "right";
-    this.ctx.fillStyle = '#ca42fb';
+    if (eth == maxWallet)
+      this.ctx.fillStyle = '#faf663';
+    else
+      this.ctx.fillStyle = '#ca42fb';
+
     this.ctx.fillText(String(eth), this.canvasWidth - 10, 60 + (this.ethImage.height as number))
   }
 
