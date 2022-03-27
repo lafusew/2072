@@ -1,6 +1,7 @@
 import { Btc } from "../core/Entities/bitcoin";
 import { Earth } from "../core/Entities/earth";
 import { IUnit } from "../core/Entities/entity";
+import { typeSelect } from "../core/Entities/unitmanager";
 import { BtnRenderer } from "./inputs";
 import { SpriteRenderer } from "./sprite";
 
@@ -25,7 +26,6 @@ export class Renderer {
     this.ctx = ctx;
     this.canvasWidth = canvas.width;
     this.canvasHeight = canvas.height;
-    this.spriteRenderer = new SpriteRenderer(ctx);
 
     this.backgroundImage = new Image();
     this.backgroundImage.src = 'src/assets/background.png'
@@ -34,7 +34,9 @@ export class Renderer {
     this.punkImage = new Image();
     this.punkImage.src = 'src/assets/cryptopunk.png';
 
-    this.btnRenderer = new BtnRenderer(this.ctx);
+    this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage);
+
+    this.btnRenderer = new BtnRenderer(this.ctx, this.punkImage);
   }
 
   renderBackground(): void {
@@ -46,13 +48,13 @@ export class Renderer {
   }
 
   renderNfts(units: IUnit[]) {
-    units.forEach(element => {
-      this.ctx.drawImage(this.punkImage, element.x - (element.size / 2), element.y - (element.size / 2), element.size, element.size);
+    units.forEach(unit => {
+      this.spriteRenderer.renderEntity(unit);
     });
   }
 
-  renderUnitBtn() {
-    this.btnRenderer.unitSelectionDisplay();
+  renderUnitBtn(type: typeSelect,) {
+    this.btnRenderer.unitSelectionDisplay(type);
   }
 
   renderEarth(earth: Earth) {

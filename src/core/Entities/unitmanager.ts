@@ -9,6 +9,7 @@ export const MONKEY_PRICE = 50;
 
 const ETH_START = 3000000;
 
+
 export enum typeSelect {
   NULL,
   PUNK,
@@ -32,7 +33,7 @@ export class UnitManager {
     this.selected = typeSelect.NULL;	// TODO SELECTION
     this.etherum = ETH_START;
     this.bounding = bounding;
-	this.earthRadius = earthRadius;
+    this.earthRadius = earthRadius;
     this.units = [];
   }
 
