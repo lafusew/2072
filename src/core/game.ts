@@ -22,8 +22,10 @@ export class Game {
   unitManager: UnitManager;
   earth: Earth
   audio: AudioManager;
+  end: boolean;
 
   constructor(canvas: HTMLCanvasElement) {
+    this.end = false;
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     this.ctx.imageSmoothingEnabled = false
@@ -44,6 +46,12 @@ export class Game {
     this.btc.update(this.earth, delta);
 
     this.unitManager.getUnits().forEach(element => {
+      if (this.earth.state == allState.DEAD)  // TODO check with timer
+      {
+        this.end = true;
+        return;
+      }
+
       if (!btc_atck && this.btc.canAttack(element))
       {
         this.btc.attack(element);
@@ -54,8 +62,14 @@ export class Game {
         element.moove(this.earth.x, this.earth.y, delta);
       }
       else
-        ;// TO DO ATTACK EARTH
-    });
+      {
+        element.updateAttack(delta);
+        element.attack(this.earth);
+      }
+    }
+
+    );
+
     // Render
     this.renderer.renderBackground();
     this.renderer.renderEarth(this.earth);
