@@ -1,35 +1,30 @@
 import { allType, IEntity } from "../core/Entities/entity";
-interface SpriteSheets {
-  btc: SpriteSheet;
-  cryptoPunk: SpriteSheet;
-  boredApes: SpriteSheet;
-  earth: SpriteSheet;
-}
-
-interface SpriteSheet {
-  iddle: string[],
-  moove: string[],
-  attack: string[],
-  die: string[]
-}
 
 export class SpriteRenderer {
   ctx: CanvasRenderingContext2D;
 
-  btcSprites: CanvasImageSource;
-
+  btc: CanvasImageSource;
+  punk: CanvasImageSource;
   constructor(
-    ctx: CanvasRenderingContext2D
+    ctx: CanvasRenderingContext2D,
+    // to do for each sprites
+    punk: CanvasImageSource,
   ) {
     this.ctx = ctx;
-    this.btcSprites = new Image()
-    this.btcSprites.src = 'src/assets/btc.png'
+    this.btc = new Image();
+    this.btc.src = 'src/assets/btc.png';
+
+    this.punk = punk
   }
 
   renderEntity(entity: IEntity) {
     switch (entity.type) {
       case allType.BTC:
-        this.ctx.drawImage(this.btcSprites, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+        this.ctx.drawImage(this.btc, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+        break;
+
+      case allType.PUNK:
+        this.ctx.drawImage(this.punk, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         break;
 
       default:

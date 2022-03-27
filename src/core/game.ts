@@ -12,7 +12,6 @@ const SPAWN_BTC_Y = 200;
 export const SOUNDS_MAP = {
   tk1: 'tk1.mp3',
   tk2: 'tk2.mp3',
-
 }
 
 export class Game {
@@ -27,6 +26,7 @@ export class Game {
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    this.ctx.imageSmoothingEnabled = false
     this.renderer = new Renderer(this.canvas, this.ctx);
     this.earth = new Earth((canvas.width / 2), (canvas.height / 2));
     this.btc = new Btc(SPAWN_BTC_X, SPAWN_BTC_Y);
@@ -60,7 +60,7 @@ export class Game {
     // Render
     this.renderer.renderBackground();
     this.renderer.renderEarth(this.earth);
-    this.renderer.renderUnitBtn();
+    this.renderer.renderUnitBtn(this.unitManager.getSelected());
     this.renderer.renderNfts(this.unitManager.getUnits());
     this.renderer.renderBtc(this.btc)
   }

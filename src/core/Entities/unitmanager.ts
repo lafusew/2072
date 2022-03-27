@@ -11,6 +11,7 @@ export const MONKEY_PRICE = 50;
 const ETH_START   = 3000000;
 const RANGE_SPAWN = 300;
 
+
 export enum typeSelect {
   NULL,
   PUNK,
