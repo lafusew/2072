@@ -46,11 +46,11 @@ export class SpriteRenderer {
     }
   }
 
-  loadAnimationSprites(filenames: string[]): CanvasImageSource[] {
+  loadAnimationSprites(filenames: string[], namePath = ''): CanvasImageSource[] {
     const sprites: CanvasImageSource[] = [];
     for (let i = 0; i < filenames.length; i++) {
       const img = new Image();
-      img.src = "src/assets/" + filenames[i]
+      img.src = "src/assets/" + namePath + filenames[i]
       sprites.push(img);
     }
     return sprites
