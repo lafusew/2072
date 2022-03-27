@@ -25,7 +25,7 @@ Run `yarn dev` and go to http://localhost:3000
 	- attaque du btc
 	- terre qui tourne
 	- tourner les nft direction terre
-- CREER LES 2 AUTRES NFT
+- CREER LES 1 AUTRES NFT
 - SCENES
 	- fin de la partie (victoir btc ou nft)
 	- menu

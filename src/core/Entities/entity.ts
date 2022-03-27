@@ -32,6 +32,7 @@ export interface IUnit extends IEntity {
 	range: number;
 	damage: number;
 	lastAttack: number;
+	readyToDelete: boolean;
 
 	moove:(x: number, y: number, delta: number) => void;
 	attack:(target: IEntity) => void;

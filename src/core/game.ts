@@ -123,8 +123,6 @@ export class Game {
         if (element.updateAttack) {
           element.updateAttack(delta);
         }
-        if (element.type == allType.BANANA)
-          console.log('OH A BANANA HERE');
         if (element.type == allType.MONKEY)
         {
           if (element.attackBanana)
@@ -132,13 +130,12 @@ export class Game {
         }
         else
         {
-          if (element.type == allType.BANANA)
-          console.log('BANANA ATTACK');
-
           element.attack(this.earth);
         }
       }
     });
+0
+    this.unitManager.units = this.unitManager.getUnits().filter((val) => !val.readyToDelete)
     // Render
     this.renderer.renderBackground();
     this.renderer.renderEarth(this.earth);

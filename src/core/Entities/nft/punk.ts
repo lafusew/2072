@@ -18,6 +18,7 @@ export class PunkUnit implements IUnit {
   range: number;
   damage: number;
   lastAttack: number;
+  readyToDelete: boolean;
 
   constructor(x: number, y: number, radiusEarth: number) {
     this.size = SIZE_PUNK;
@@ -30,6 +31,7 @@ export class PunkUnit implements IUnit {
     this.range = radiusEarth * 1.2;
     this.damage = DAMAGE_PUNK;
     this.lastAttack = 0;
+    this.readyToDelete = false;
   }
 
   setState(state: allState): void {

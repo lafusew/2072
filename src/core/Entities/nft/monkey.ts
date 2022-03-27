@@ -21,6 +21,7 @@ export class MonkeyUnit implements IUnit {
   damage: number;
   lastAttack: number;
   radiusEarth: number;
+  readyToDelete: boolean;
 
   constructor(x: number, y: number, radiusEarth: number) {
     this.size = SIZE_MONKEY;
@@ -34,6 +35,7 @@ export class MonkeyUnit implements IUnit {
     this.radiusEarth = radiusEarth;
     this.damage = DAMAGE_MONKEY;
     this.lastAttack = 0;
+    this.readyToDelete = false;
   }
 
   setState(state: allState): void {

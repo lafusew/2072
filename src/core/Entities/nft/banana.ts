@@ -18,6 +18,7 @@ export class BananaUnit implements IUnit {
   range: number;
   damage: number;
   lastAttack: number;
+  readyToDelete: boolean;
 
   constructor(x: number, y: number, radiusEarth: number) {
     this.size = SIZE_BANANA;
@@ -30,6 +31,7 @@ export class BananaUnit implements IUnit {
     this.range = radiusEarth * 1.2;
     this.damage = DAMAGE_BANANA;
     this.lastAttack = 0;
+    this.readyToDelete = false;
   }
 
   setState(state: allState): void {
@@ -66,6 +68,7 @@ export class BananaUnit implements IUnit {
       this.state = allState.DEAD;
       this.lifeAmount = 0;
       this.lastAttack = 0;
+      this.readyToDelete = true;
    }
   }
 
