@@ -51,7 +51,7 @@ export class Game {
       }
 
       if (!element.canAttack(this.earth)) {
-        element.moove(this.earth.x, this.earth.y, 1);
+        element.moove(this.earth.x, this.earth.y, delta);
       }
     });
     // Render

@@ -1,6 +1,6 @@
 # Viva Tech Gamejam
 
-A HTML Canvas game made in 2 days for the Vivatech Gamejam of March 22. 
+A HTML Canvas game made in 2 days for the Vivatech Gamejam of March 22.
 
 ## Requirements
 
@@ -8,7 +8,7 @@ Nodejs and Yarn.
 
 If you're on MacOS and have Homebrew package manager installed run `brew install yarn`. It will install Nodejs which is a desktop javascript engine, and yarn which a javascript packages and dependencies manager.
 
-If you're not on MacOS or don't have homebrew installed, first if you don't have Nodejs installed, install it [here](https://nodejs.org/en/download/). 
+If you're not on MacOS or don't have homebrew installed, first if you don't have Nodejs installed, install it [here](https://nodejs.org/en/download/).
 
 And then install Yarn like that `curl -o- -L https://yarnpkg.com/install.sh | bash`
 
@@ -18,5 +18,23 @@ Run `yarn install` at the root of this directory. It will install all javascript
 
 Run `yarn dev` and go to http://localhost:3000
 
-
-
+- ZONE DE SPAWN
+	- check si nft peut etre deposer
+	- dessiner zone de spwn
+- INTERFACE NFT
+- ANIMATION
+	- mort nft
+	- attaque du btc
+	- terre qui tourne
+- VIE DE LA TERRE
+	- attaques des units
+	- affichage barre de vie
+- TIMER
+	- aceleration du jeu
+		- wallet eth et vitesse/degat btc
+	- affichage annee
+- CREER LES 2 AUTRES NFT
+- SCENES
+	- fin de la partie (victoir btc ou nft)
+	- menu
+	- (bonus) pause

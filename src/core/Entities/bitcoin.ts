@@ -74,7 +74,6 @@ export class Btc implements IUnit {
   }
 
   update(earth: Earth): void {
-
     let friction = 0.9;
 
     if (this.keys['ArrowUp']) {
@@ -136,6 +135,7 @@ export class Btc implements IUnit {
       return (true);
     return (false);
   }
+
   moove(): void {}
 
 }

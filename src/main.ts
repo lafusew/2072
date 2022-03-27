@@ -32,7 +32,8 @@ function run() {
   // How it works here:
   // https://gist.github.com/elundmark/38d3596a883521cb24f5
   if (delta > interval) {
+    //console.log('delta = ' +  delta)
     then = now - (delta % interval);
-    game.update(delta)
+    game.update(delta / 1000)
   }
 }
