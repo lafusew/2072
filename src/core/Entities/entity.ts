@@ -1,6 +1,5 @@
 export enum allState {
 	DEAD,
-	NOMOOVE,
 	MOOVE,
 	ATTACK,
 	TAKEDAMAGE
@@ -28,8 +27,10 @@ export interface IUnit extends IEntity {
 	speed: number;
 	range: number;
 	damage: number;
+	lastAttack: number;
 
 	moove:(x: number, y: number, delta: number) => void;
 	attack:(target: IEntity) => void;
 	canAttack:(target: IEntity) => boolean;
+	updateAttack?:(delta: number) => void;
 }

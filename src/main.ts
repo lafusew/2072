@@ -34,6 +34,8 @@ function run() {
   if (delta > interval) {
     //console.log('delta = ' +  delta)
     then = now - (delta % interval);
-    game.update(delta / 1000)
+    game.update(delta / 1000);
+    if (game.end)
+      return ;
   }
 }

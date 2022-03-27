@@ -1,10 +1,12 @@
 import { Earth } from "./earth";
 import { allState, allType, IEntity, IUnit } from "./entity";
 
-const LIFE_PUNK   = 50;
-const SPEED_PUNK  = 50;
-const SIZE_PUNK   = 50;
-const DAMAGE_PUNK = 50;
+const LIFE_PUNK    = 50;
+const SPEED_PUNK   = 50;
+const SIZE_PUNK    = 50;
+const DAMAGE_PUNK  = 50;
+const DELAY_ATTACK = 0.5;
+
 
 export class PunkUnit implements IUnit {
   x: number;
@@ -16,6 +18,7 @@ export class PunkUnit implements IUnit {
   speed: number;
   range: number;
   damage: number;
+  lastAttack: number;
 
   constructor(x: number, y: number, radiusEarth: number) {
     this.size = SIZE_PUNK;
@@ -27,6 +30,7 @@ export class PunkUnit implements IUnit {
     this.speed = SPEED_PUNK;
     this.range = radiusEarth * 1.2;
     this.damage = DAMAGE_PUNK;
+    this.lastAttack = 0;
   }
 
   setState(state: allState): void {
@@ -55,8 +59,18 @@ export class PunkUnit implements IUnit {
     this.y += step * dy;
   }
 
+  updateAttack(delta: number): void {
+    this.lastAttack += delta;
+  }
+
   attack(target: IEntity): void {
-    target.takeDamage(this.damage);
+    if (this.state == allState.DEAD || target.state == allState.DEAD)
+      return ;
+    if (this.lastAttack > DELAY_ATTACK)
+    {
+      target.takeDamage(this.damage);
+      this.lastAttack = 0;
+    }
   }
 
   canAttack(target: IEntity): boolean {

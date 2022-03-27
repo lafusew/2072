@@ -30,7 +30,7 @@ export class Btc implements IUnit {
     this.y = y + this.size / 2;
     this.velX = 0;
     this.velY = 0;
-    this.state = allState.NOMOOVE;
+    this.state = allState.MOOVE;
     this.type = allType.BTC;
     this.lifeAmount = LIFE_BTC;
     this.speed = SPEED_BTC;
@@ -129,6 +129,8 @@ export class Btc implements IUnit {
   }
 
   attack(target: IEntity): void {
+    if (this.state == allState.DEAD || target.state == allState.DEAD)
+      return ;
     if (this.lastAttack > DELAY_ATTACK)
     {
       target.takeDamage(this.damage);
