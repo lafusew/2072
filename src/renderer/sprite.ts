@@ -1,4 +1,4 @@
-import { allType, IEntity } from "../core/entities/entity";
+import { allState, allType, IEntity } from "../core/entities/entity";
 
 export class SpriteRenderer {
   ctx: CanvasRenderingContext2D;
@@ -26,6 +26,9 @@ export class SpriteRenderer {
   renderEntity(entity: IEntity) {
     switch (entity.type) {
       case allType.BTC:
+        if (entity.state === allState.ATTACK) {
+          this.ctx.rotate(10 * Math.PI / 18);
+        }
         this.ctx.drawImage(this.btc, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         break;
 
