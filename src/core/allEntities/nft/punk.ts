@@ -1,9 +1,9 @@
 import { allState, allType, IEntity, IUnit } from "../entity";
 
 const LIFE_PUNK = 50;
-const SPEED_PUNK = 50;
+const SPEED_PUNK = 60;
 const SIZE_PUNK = 50;
-const DAMAGE_PUNK = 50;
+const DAMAGE_PUNK = 25;
 const DELAY_ATTACK = 0.5;
 
 

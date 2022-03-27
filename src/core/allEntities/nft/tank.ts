@@ -1,6 +1,6 @@
 import { allState, allType, IEntity, IUnit } from "../entity";
 
-const LIFE_TANK = 240;
+const LIFE_TANK = 380;
 const SPEED_TANK = 30; // speed punk / 2 ?
 const SIZE_TANK = 80;
 const DAMAGE_TANK = 250;
