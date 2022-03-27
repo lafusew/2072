@@ -1,9 +1,9 @@
 import { allState, allType, IEntity, IUnit } from "../entity";
 
-const LIFE_BANANA = 1000000;
+const LIFE_BANANA = 1;
 const SPEED_BANANA = 500;
 const SIZE_BANANA = 50;
-const DAMAGE_BANANA = 12;
+const DAMAGE_BANANA = 6;
 const DELAY_ATTACK = 0.5;
 
 
@@ -40,6 +40,11 @@ export class BananaUnit implements IUnit {
 
   takeDamage(amount: number): void {
     this.lifeAmount -= amount;
+    if (this.lifeAmount < 1)
+    {
+      this.setState(allState.DEAD);
+      this.readyToDelete = true;
+    }
   }
 
   moove(x: number, y: number, delta: number): void {

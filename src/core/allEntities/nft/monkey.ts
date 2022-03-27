@@ -1,7 +1,7 @@
 import { allState, allType, IEntity, IUnit } from "../entity";
 import { UnitManager } from "../unitmanager";
 
-const LIFE_MONKEY = 60;
+const LIFE_MONKEY = 20;
 const SPEED_MONKEY = 1;
 const SIZE_MONKEY = 100;
 const DAMAGE_MONKEY = 0;

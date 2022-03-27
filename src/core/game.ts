@@ -11,7 +11,7 @@ const SPAWN_BTC_X = 200;
 const SPAWN_BTC_Y = 200;
 const FIRST_YEAR = 2009;
 const FIRST_UP = 2012;
-const LAST_YEAR = 2020;
+const LAST_YEAR = 2072;
 
 export const SOUNDS_MAP = {
   tk1: 'tk1.mp3',
