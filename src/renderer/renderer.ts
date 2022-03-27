@@ -15,6 +15,7 @@ export class Renderer {
   earthImage: CanvasImageSource;
   punkImage: CanvasImageSource;
   lifeFrameImage: CanvasImageSource;
+  ethImage: CanvasImageSource;
 
   spriteRenderer: SpriteRenderer;
   btnRenderer: BtnRenderer;
@@ -36,6 +37,8 @@ export class Renderer {
     this.punkImage.src = 'src/assets/cryptopunk.png';
     this.lifeFrameImage = new Image();
     this.lifeFrameImage.src = 'src/assets/life_frame.png';
+    this.ethImage = new Image();
+    this.ethImage.src = 'src/assets/eth.png'
 
     this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage);
 
@@ -84,5 +87,18 @@ export class Renderer {
     this.ctx.fillRect(x, y, lifePercentagePixel, this.lifeFrameImage.height as number);
 
     this.ctx.drawImage(this.lifeFrameImage, x, y);
+  }
+
+  renderEthCount(eth: number) {
+    this.ctx.drawImage(this.ethImage, this.canvasWidth - 90, 20);
+    this.ctx.textAlign = "right";
+    this.ctx.fillStyle = '#ca42fb';
+    this.ctx.fillText(String(eth), this.canvasWidth - 10, 60 + (this.ethImage.height as number))
+  }
+
+  renderYear(year: number) {
+    this.ctx.fillStyle = 'white';
+    this.ctx.textAlign = "center";
+    this.ctx.fillText(String(year), this.canvasWidth / 2, 80);
   }
 }

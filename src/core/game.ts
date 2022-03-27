@@ -38,6 +38,13 @@ export class Game {
 
   async init() {
     await this.audio.init();
+    let font = new FontFace('Minimal', 'url(src/assets/fonts/Minimal.ttf)');
+    await font.load();
+
+    // @ts-ignore: Unreachable code error. fonts.add does exist
+    document.fonts.add(font);
+    console.log('Font loaded');
+    this.ctx.font = "40px Minimal"; // set font
   }
 
   update(delta: number) {
@@ -75,6 +82,8 @@ export class Game {
     this.renderer.renderEarth(this.earth);
     this.renderer.renderUnitBtn(this.unitManager.getSelected());
     this.renderer.renderNfts(this.unitManager.getUnits());
+    this.renderer.renderEthCount(this.unitManager.getEtherum());
+    this.renderer.renderYear(2003)
     this.renderer.renderBtc(this.btc)
   }
 }

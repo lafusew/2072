@@ -1,10 +1,9 @@
-import { Earth } from "./earth";
 import { allState, allType, IEntity, IUnit } from "./entity";
 
-const LIFE_PUNK    = 50;
-const SPEED_PUNK   = 50;
-const SIZE_PUNK    = 50;
-const DAMAGE_PUNK  = 50;
+const LIFE_PUNK = 50;
+const SPEED_PUNK = 50;
+const SIZE_PUNK = 50;
+const DAMAGE_PUNK = 50;
 const DELAY_ATTACK = 0.5;
 
 
@@ -47,12 +46,12 @@ export class PunkUnit implements IUnit {
 
   moove(x: number, y: number, delta: number): void {
     if (this.state == allState.DEAD)
-      return ;
+      return;
     this.speed = SPEED_PUNK * delta;
     let dx = x - this.x;
     let dy = y - this.y;
 
-    let dist = Math.sqrt((dx*dx) + (dy*dy));
+    let dist = Math.sqrt((dx * dx) + (dy * dy));
     let step = (this.speed / dist);
 
     this.x += step * dx;
@@ -65,9 +64,8 @@ export class PunkUnit implements IUnit {
 
   attack(target: IEntity): void {
     if (this.state == allState.DEAD || target.state == allState.DEAD)
-      return ;
-    if (this.lastAttack > DELAY_ATTACK)
-    {
+      return;
+    if (this.lastAttack > DELAY_ATTACK) {
       target.takeDamage(this.damage);
       this.lastAttack = 0;
     }
