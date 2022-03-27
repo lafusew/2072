@@ -36,7 +36,7 @@ export class SpriteRenderer {
     const sprites: CanvasImageSource[] = [];
     for (let i = 0; i < filenames.length; i++) {
       const img = new Image();
-      img.src = filenames[i]
+      img.src = "src/assets/" + filenames[i]
       sprites.push(img);
     }
     return sprites
@@ -48,20 +48,22 @@ export class SpriteRenderer {
       x: number,
       y: number,
       angle: number,
-      factor: number,
       changespeed: number
     }
   ) {
     this.ctx.save();
     this.ctx.translate(config.x, config.y);
     this.ctx.rotate(config.angle * Math.PI / 180);
-    if (!!imgList[Math.round(Date.now() / config.changespeed) % imgList.length]) {
+    const now = window.performance.now();
+
+    // ???
+    if (!!imgList[Math.round(now / config.changespeed) % imgList.length]) {
       this.ctx.drawImage(
-        imgList[Math.round(Date.now() / config.changespeed) % imgList.length],
-        -(imgList[Math.round(Date.now() / config.changespeed) % imgList.length].width as number * config.factor / 2),
-        -(imgList[Math.round(Date.now() / config.changespeed) % imgList.length].height as number * config.factor / 2),
-        imgList[Math.round(Date.now() / config.changespeed) % imgList.length].width as number * config.factor,
-        imgList[Math.round(Date.now() / config.changespeed) % imgList.length].height as number * config.factor);
+        imgList[Math.round(now / config.changespeed) % imgList.length],
+        -(imgList[Math.round(now / config.changespeed) % imgList.length].width as number * .5),
+        -(imgList[Math.round(now / config.changespeed) % imgList.length].height as number * .5),
+        imgList[Math.round(now / config.changespeed) % imgList.length].width as number,
+        imgList[Math.round(now / config.changespeed) % imgList.length].height as number);
     }
     this.ctx.restore();
   }
