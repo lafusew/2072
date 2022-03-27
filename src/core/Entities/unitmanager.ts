@@ -7,9 +7,10 @@ import { MonkeyUnit } from "./nft/monkey";
 import { BananaUnit } from "./nft/banana";
 
 
-export const PUNK_PRICE      = 1;
+export const PUNK_PRICE      = 2;
 export const IDONTKNOW_PRICE = 2.5;
-export const MONKEY_PRICE    = 5;
+export const MONKEY_PRICE    = 7;
+export const TANK_PRICE      = 10;
 
 const MAX_WALLET_DEFAULT  = 5;
 const ETH_START           = 0;
@@ -19,7 +20,7 @@ const RANGE_SPAWN         = 300;
 export enum typeSelect {
   NULL,
   PUNK,
-  IDONTKNOW,
+  TANK,
   MONKEY
 }
 
