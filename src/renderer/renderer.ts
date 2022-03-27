@@ -1,7 +1,7 @@
-import { Btc } from "../core/entities/bitcoin";
-import { Earth, LIFE_EARTH } from "../core/entities/earth";
-import { IUnit } from "../core/entities/entity";
-import { typeSelect } from "../core/entities/unitmanager";
+import { Btc } from "../core/allEntities/bitcoin";
+import { Earth, LIFE_EARTH } from "../core/allEntities/earth";
+import { IUnit } from "../core/allEntities/entity";
+import { typeSelect } from "../core/allEntities/unitmanager";
 import { BtnRenderer } from "./inputs";
 import { SpriteRenderer } from "./sprite";
 

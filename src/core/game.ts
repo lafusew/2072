@@ -1,10 +1,10 @@
 
 import { Renderer } from "../renderer/renderer";
-import { Btc } from "./entities/bitcoin";
-import { Earth } from "./entities/earth";
-import { allState, allType } from "./entities/entity";
-import { MonkeyUnit } from "./entities/nft/monkey";
-import { UnitManager } from "./entities/unitmanager";
+import { Btc } from "./allEntities/bitcoin";
+import { Earth } from "./allEntities/earth";
+import { allState, allType } from "./allEntities/entity";
+import { MonkeyUnit } from "./allEntities/nft/monkey";
+import { UnitManager } from "./allEntities/unitmanager";
 import { AudioManager } from "./sound/soundManager";
 
 

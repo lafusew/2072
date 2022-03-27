@@ -1,4 +1,4 @@
-import { allState, allType, IEntity } from "../core/entities/entity";
+import { allState, allType, IEntity } from "../core/allEntities/entity";
 
 const EARTH_SPRITES = ['earth_0.gif', 'earth_1.gif', 'earth_2.gif', 'earth_3.gif', 'earth_4.gif', 'earth_5.gif', 'earth_6.gif', 'earth_7.gif', 'earth_8.gif', 'earth_9.gif', 'earth_10.gif', 'earth_11.gif'];
 const BTC_SPRITES = ['btc_attack_0.gif', 'btc_attack_1.gif', 'btc_attack_2.gif', 'btc_attack_3.gif', 'btc_attack_4.gif'];
