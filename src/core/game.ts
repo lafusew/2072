@@ -136,6 +136,9 @@ export class Game {
     });
 0
     this.unitManager.units = this.unitManager.getUnits().filter((val) => !val.readyToDelete)
+
+
+
     // Render
     this.renderer.renderBackground();
     this.renderer.renderEarth(this.earth);
