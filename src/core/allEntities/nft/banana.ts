@@ -3,7 +3,7 @@ import { allState, allType, IEntity, IUnit } from "../entity";
 const LIFE_BANANA = 1;
 const SPEED_BANANA = 500;
 const SIZE_BANANA = 50;
-const DAMAGE_BANANA = 8;
+const DAMAGE_BANANA = 6;
 const DELAY_ATTACK = 0.5;
 
 
