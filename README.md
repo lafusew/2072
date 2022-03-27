@@ -23,7 +23,6 @@ Run `yarn dev` and go to http://localhost:3000
 - ANIMATION
 	- mort nft
 	- attaque du btc
-	- terre qui tourne
 	- tourner les nft direction terre
 - CREER LES 1 AUTRES NFT
 - SCENES

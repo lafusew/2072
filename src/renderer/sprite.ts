@@ -1,4 +1,4 @@
-import { allType, IEntity } from "../core/entities/entity";
+import { allState, allType, IEntity } from "../core/entities/entity";
 
 export class SpriteRenderer {
   ctx: CanvasRenderingContext2D;
@@ -29,6 +29,9 @@ export class SpriteRenderer {
   renderEntity(entity: IEntity) {
     switch (entity.type) {
       case allType.BTC:
+        if (entity.state === allState.ATTACK) {
+          this.ctx.rotate(10 * Math.PI / 18);
+        }
         this.ctx.drawImage(this.btc, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         break;
 
@@ -51,11 +54,11 @@ export class SpriteRenderer {
     }
   }
 
-  loadAnimationSprites(filenames: string[]): CanvasImageSource[] {
+  loadAnimationSprites(filenames: string[], namePath = ''): CanvasImageSource[] {
     const sprites: CanvasImageSource[] = [];
     for (let i = 0; i < filenames.length; i++) {
       const img = new Image();
-      img.src = "src/assets/" + filenames[i]
+      img.src = "src/assets/" + namePath + filenames[i]
       sprites.push(img);
     }
     return sprites

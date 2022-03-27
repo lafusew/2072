@@ -51,9 +51,8 @@ export class Renderer {
     this.ethImage.src = 'src/assets/eth.png'
 
     this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage, this.tankImage, this.monkeyImage, this.bananaImage);
-
-    this.earthImages = this.spriteRenderer.loadAnimationSprites(EARTH_SPRITES);
-    this.btnRenderer = new BtnRenderer(this.ctx, this.punkImage, this.tankImage, this.monkeyImage);
+    this.earthImages = this.spriteRenderer.loadAnimationSprites(EARTH_SPRITES, 'animated_earth/');
+    this.btnRenderer = new BtnRenderer(this.ctx, this.punkImage, this.monkeyImage);
   }
 
   renderBackground(): void {
