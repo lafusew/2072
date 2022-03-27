@@ -12,7 +12,7 @@ export const IDONTKNOW_PRICE = 2.5;
 export const MONKEY_PRICE    = 5;
 
 const MAX_WALLET_DEFAULT  = 5;
-const ETH_START           = 50;
+const ETH_START           = 0;
 const RANGE_SPAWN         = 300;
 
 
