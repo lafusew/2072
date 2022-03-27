@@ -2,6 +2,7 @@
 import { Renderer } from "../renderer/renderer";
 import { Btc } from "./Entities/bitcoin";
 import { Earth } from "./Entities/earth";
+import { allState } from "./Entities/entity";
 import { UnitManager } from "./Entities/unitmanager";
 import { AudioManager } from "./sound/soundManager";
 
