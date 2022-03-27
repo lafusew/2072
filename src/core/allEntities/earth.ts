@@ -31,7 +31,6 @@ export class Earth implements IEntity {
       this.setState(allState.DEAD);
     else
       this.setState(allState.TAKEDAMAGE);
-    console.log("LIFE_EARTH = " + this.lifeAmount);
   }
 
   getSize(): number {

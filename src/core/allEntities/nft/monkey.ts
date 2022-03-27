@@ -89,7 +89,6 @@ export class MonkeyUnit implements IUnit {
       return;
     if (this.lastAttack > DELAY_ATTACK) {
         units.spawnBanana(this.x, this.y);
-        console.log('NEW BANANA')
         this.lastAttack = 0;
    }
   }

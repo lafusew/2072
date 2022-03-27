@@ -51,7 +51,6 @@ export class UnitManager {
       this.etherum -= PUNK_PRICE;
       const punk = new PunkUnit(x, y, this.earth.size / 2);
       this.units.push(punk);
-      //console.log('spawned');
     }
   }
 
@@ -60,7 +59,6 @@ export class UnitManager {
       this.etherum -= TANK_PRICE;
       const tank = new TankUnit(x, y, this.earth.size / 2);
       this.units.push(tank);
-      //console.log('spawned');
     }
   }
 
@@ -69,7 +67,6 @@ export class UnitManager {
       this.etherum -= MONKEY_PRICE;
       const monkey = new MonkeyUnit(x, y, this.earth.size / 2);
       this.units.push(monkey);
-      //console.log('spawned');
     }
   }
 
