@@ -23,6 +23,7 @@ export class Btc implements IUnit {
   velY: number;
   keys: Record<string, boolean>;
   lastAttack: number;
+  readyToDelete: boolean;
 
   constructor(x: number, y: number) {
     this.size = SIZE_BTC;
@@ -38,6 +39,7 @@ export class Btc implements IUnit {
     this.damage = DAMAGE_BTC;
     this.keys = {}
     this.lastAttack = 0;
+    this.readyToDelete = false;
 
     window.addEventListener('keydown', (e) => {
       this.keys[e.key] = true;
@@ -79,6 +81,8 @@ export class Btc implements IUnit {
   update(earth: Earth, delta: number): void {
     let friction = 0.9;
     this.lastAttack += delta;
+    if (this.lastAttack > 0.4)
+      this.state = allState.MOOVE;
 
     if (this.keys['ArrowUp']) {
       if (this.velY > -this.speed) {
@@ -133,6 +137,7 @@ export class Btc implements IUnit {
       return ;
     if (this.lastAttack > DELAY_ATTACK)
     {
+      this.state = allState.ATTACK;
       target.takeDamage(this.damage);
       this.lastAttack = 0;
     }
