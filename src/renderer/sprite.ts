@@ -2,56 +2,70 @@ import { allState, allType, IEntity } from "../core/entities/entity";
 
 const EARTH_SPRITES = ['earth_0.gif', 'earth_1.gif', 'earth_2.gif', 'earth_3.gif', 'earth_4.gif', 'earth_5.gif', 'earth_6.gif', 'earth_7.gif', 'earth_8.gif', 'earth_9.gif', 'earth_10.gif', 'earth_11.gif'];
 const BTC_SPRITES = ['btc_attack_0.gif', 'btc_attack_1.gif', 'btc_attack_2.gif', 'btc_attack_3.gif', 'btc_attack_4.gif'];
+const MONKEY_SPRITES = ['monkey_0.gif', 'monkey_1.gif'];
+const PUNK_SPRITES = ['punk_0.gif', 'punk_1.gif'];
+const BANANA_SPRITES = ['banana.png'];
+const TANK_SPRITES = ['tank_0.gif', 'tank_1.gif'];
 
 export class SpriteRenderer {
   ctx: CanvasRenderingContext2D;
 
-  btc: CanvasImageSource[];
-  punk: CanvasImageSource;
-  tank: CanvasImageSource;
-  monkey: CanvasImageSource;
-  banana: CanvasImageSource;
-  earth: CanvasImageSource[];
+  btcSprites: CanvasImageSource[];
+  punkSprites: CanvasImageSource[];
+  tankSprites: CanvasImageSource[];
+  monkeySprites: CanvasImageSource[];
+  bananaSprites: CanvasImageSource[];
+  earthSprites: CanvasImageSource[];
   constructor(
     ctx: CanvasRenderingContext2D,
     // to do for each sprites
-    punk: CanvasImageSource,
-    tank: CanvasImageSource,
-    monkey: CanvasImageSource,
-    banana: CanvasImageSource,
   ) {
     this.ctx = ctx;
-    this.btc = this.loadAnimationSprites(BTC_SPRITES, 'animated_btc/')
-
-    this.punk = punk;
-    this.tank = tank;
-    this.monkey = monkey;
-    this.banana = banana;
-    this.earth = this.loadAnimationSprites(EARTH_SPRITES, 'animated_earth/');
+    this.punkSprites = this.loadAnimationSprites(PUNK_SPRITES, 'animated_punk/')
+    this.btcSprites = this.loadAnimationSprites(BTC_SPRITES, 'animated_btc/')
+    this.monkeySprites = this.loadAnimationSprites(MONKEY_SPRITES, 'animated_monkey/');
+    this.earthSprites = this.loadAnimationSprites(EARTH_SPRITES, 'animated_earth/');
+    this.bananaSprites = this.loadAnimationSprites(BANANA_SPRITES, 'animated_banana/');
+    this.tankSprites = this.loadAnimationSprites(TANK_SPRITES, 'animated_tank/')
   }
 
   renderEntity(entity: IEntity) {
     switch (entity.type) {
+
       case allType.BTC:
         if (entity.state === allState.ATTACK) {
-          this.renderAnimatedEntity(entity, this.btc, 100);
+          this.renderAnimatedEntity(entity, this.btcSprites, 100);
         } else {
-          this.ctx.drawImage(this.btc[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+          this.ctx.drawImage(this.btcSprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         }
         break;
 
       case allType.PUNK:
-        this.ctx.drawImage(this.punk, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+        if (entity.state === allState.TAKEDAMAGE) {
+          this.renderAnimatedEntity(entity, this.punkSprites, 100);
+        } else {
+          this.ctx.drawImage(this.punkSprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+        }
         break;
+
       case allType.TANK:
-        this.ctx.drawImage(this.tank, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+        if (entity.state === allState.TAKEDAMAGE) {
+          this.renderAnimatedEntity(entity, this.tankSprites, 100);
+        } else {
+          this.ctx.drawImage(this.tankSprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+        }
         break;
+
       case allType.MONKEY:
-        this.ctx.drawImage(this.monkey, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+        if (entity.state === allState.TAKEDAMAGE) {
+          this.renderAnimatedEntity(entity, this.monkeySprites, 100);
+        } else {
+          this.ctx.drawImage(this.monkeySprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+        }
         break;
 
       case allType.BANANA:
-        this.ctx.drawImage(this.banana, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+        this.ctx.drawImage(this.bananaSprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         break;
 
       default:

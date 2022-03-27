@@ -13,10 +13,6 @@ export class Renderer {
   canvasHeight: number;
 
   backgroundImage: CanvasImageSource;
-  punkImage: CanvasImageSource;
-  tankImage: CanvasImageSource;
-  monkeyImage: CanvasImageSource;
-  bananaImage: CanvasImageSource;
   lifeFrameImage: CanvasImageSource;
   ethImage: CanvasImageSource;
 
@@ -35,21 +31,14 @@ export class Renderer {
     this.backgroundImage = new Image();
     this.backgroundImage.src = 'src/assets/background.png'
 
-    this.punkImage = new Image();
-    this.punkImage.src = 'src/assets/cryptopunk.png';
-    this.tankImage = new Image();
-    this.tankImage.src = 'src/assets/tank.png';
-    this.monkeyImage = new Image();
-    this.monkeyImage.src = 'src/assets/monkey.png';
-    this.bananaImage = new Image();
-    this.bananaImage.src = 'src/assets/banana.png';
     this.lifeFrameImage = new Image();
     this.lifeFrameImage.src = 'src/assets/life_frame.png';
     this.ethImage = new Image();
+
     this.ethImage.src = 'src/assets/eth.png'
 
-    this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage, this.tankImage, this.monkeyImage, this.bananaImage);
-    this.btnRenderer = new BtnRenderer(this.ctx, this.punkImage, this.tankImage, this.monkeyImage);
+    this.spriteRenderer = new SpriteRenderer(ctx);
+    this.btnRenderer = new BtnRenderer(this.ctx, this.spriteRenderer.punkSprites[0], this.spriteRenderer.tankSprites[0], this.spriteRenderer.monkeySprites[0]);
   }
 
   renderBackground(): void {
@@ -72,7 +61,7 @@ export class Renderer {
 
 
   renderEarth(earth: Earth): void {
-    this.spriteRenderer.renderAnimatedEntity(earth, this.spriteRenderer.earth, earth.getSize());
+    this.spriteRenderer.renderAnimatedEntity(earth, this.spriteRenderer.earthSprites, earth.getSize());
     this.renderEarthLife(earth);
   }
 
