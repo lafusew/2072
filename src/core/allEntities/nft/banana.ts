@@ -4,7 +4,7 @@ const LIFE_BANANA = 1000000;
 const SPEED_BANANA = 500;
 const SIZE_BANANA = 50;
 const DAMAGE_BANANA = 10;
-const DELAY_ATTACK = 0;
+const DELAY_ATTACK = 0.5;
 
 
 export class BananaUnit implements IUnit {

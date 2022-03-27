@@ -74,7 +74,7 @@ export class Game {
     this.give_upgrade = true;
     if (this.year >= 2015)
     {
-      this.unitManager.max_wallet += 1;
+      //this.unitManager.max_wallet += 1;
       this.unitManager.addEtherum(Math.floor(((this.year - 2000) / 10)));
     }
     this.btc.speed += 0.2;
