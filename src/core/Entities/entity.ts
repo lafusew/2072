@@ -1,3 +1,5 @@
+import { UnitManager } from "./unitmanager";
+
 export enum allState {
 	DEAD,
 	MOOVE,
@@ -7,6 +9,8 @@ export enum allState {
 export enum allType {
 	NULL,
 	PUNK,
+	MONKEY,
+	BANANA,
 	BTC,
 	EARTH
 }
@@ -33,4 +37,5 @@ export interface IUnit extends IEntity {
 	attack:(target: IEntity) => void;
 	canAttack:(target: IEntity) => boolean;
 	updateAttack?:(delta: number) => void;
+	attackBanana?:(units: UnitManager) => void;
 }

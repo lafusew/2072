@@ -1,9 +1,10 @@
 
 import { Renderer } from "../renderer/renderer";
-import { Btc } from "./Entities/bitcoin";
-import { Earth } from "./Entities/earth";
-import { allState } from "./Entities/entity";
-import { UnitManager } from "./Entities/unitmanager";
+import { Btc } from "./entities/bitcoin";
+import { Earth } from "./entities/earth";
+import { allState, allType } from "./entities/entity";
+import { MonkeyUnit } from "./entities/nft/monkey";
+import { UnitManager } from "./entities/unitmanager";
 import { AudioManager } from "./sound/soundManager";
 
 
@@ -122,7 +123,20 @@ export class Game {
         if (element.updateAttack) {
           element.updateAttack(delta);
         }
-        element.attack(this.earth);
+        if (element.type == allType.BANANA)
+          console.log('OH A BANANA HERE');
+        if (element.type == allType.MONKEY)
+        {
+          if (element.attackBanana)
+            element.attackBanana(this.unitManager);
+        }
+        else
+        {
+          if (element.type == allType.BANANA)
+          console.log('BANANA ATTACK');
+
+          element.attack(this.earth);
+        }
       }
     });
     // Render

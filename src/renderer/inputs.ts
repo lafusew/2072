@@ -1,4 +1,4 @@
-import { typeSelect } from "../core/Entities/unitmanager";
+import { typeSelect } from "../core/entities/unitmanager";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../main";
 
 const BTN_PADDING = 20;
@@ -21,10 +21,12 @@ export class BtnRenderer {
   frameSelected: CanvasImageSource;
   frameUnselected: CanvasImageSource;
   punk: CanvasImageSource;
+  monkey: CanvasImageSource;
 
-  constructor(ctx: CanvasRenderingContext2D, punk: CanvasImageSource) {
+  constructor(ctx: CanvasRenderingContext2D, punk: CanvasImageSource, monkey: CanvasImageSource) {
     this.ctx = ctx;
     this.punk = punk;
+    this.monkey = monkey;
 
     this.UNIT_BTN_SIZE = 100;
     this.BTN_COUNT = 3;
@@ -70,6 +72,13 @@ export class BtnRenderer {
       this.UNIT_BTN_START_Y + 2 * this.UNIT_BTN_SIZE,
       this.UNIT_BTN_SIZE,
       this.UNIT_BTN_SIZE
+    );
+    this.ctx.drawImage(
+      this.monkey,
+      this.UNIT_BTN_START_X + BTN_PADDING,
+      this.UNIT_BTN_START_Y + (2 * this.UNIT_BTN_SIZE) + BTN_PADDING,
+      this.UNIT_BTN_SIZE - BTN_PADDING * 2,
+      this.UNIT_BTN_SIZE - BTN_PADDING * 2
     );
   };
 

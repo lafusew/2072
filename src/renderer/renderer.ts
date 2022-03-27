@@ -1,7 +1,7 @@
-import { Btc } from "../core/Entities/bitcoin";
-import { Earth, LIFE_EARTH } from "../core/Entities/earth";
-import { IUnit } from "../core/Entities/entity";
-import { typeSelect } from "../core/Entities/unitmanager";
+import { Btc } from "../core/entities/bitcoin";
+import { Earth, LIFE_EARTH } from "../core/entities/earth";
+import { IUnit } from "../core/entities/entity";
+import { typeSelect } from "../core/entities/unitmanager";
 import { BtnRenderer } from "./inputs";
 import { SpriteRenderer } from "./sprite";
 
@@ -14,6 +14,8 @@ export class Renderer {
   backgroundImage: CanvasImageSource;
   earthImage: CanvasImageSource;
   punkImage: CanvasImageSource;
+  monkeyImage: CanvasImageSource;
+  bananaImage: CanvasImageSource;
   lifeFrameImage: CanvasImageSource;
   ethImage: CanvasImageSource;
 
@@ -35,14 +37,18 @@ export class Renderer {
     this.earthImage.src = 'src/assets/earth.gif';
     this.punkImage = new Image();
     this.punkImage.src = 'src/assets/cryptopunk.png';
+    this.monkeyImage = new Image();
+    this.monkeyImage.src = 'src/assets/monkey.png';
+    this.bananaImage = new Image();
+    this.bananaImage.src = 'src/assets/banana.png';
     this.lifeFrameImage = new Image();
     this.lifeFrameImage.src = 'src/assets/life_frame.png';
     this.ethImage = new Image();
     this.ethImage.src = 'src/assets/eth.png'
 
-    this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage);
+    this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage, this.monkeyImage, this.bananaImage);
 
-    this.btnRenderer = new BtnRenderer(this.ctx, this.punkImage);
+    this.btnRenderer = new BtnRenderer(this.ctx, this.punkImage, this.monkeyImage);
   }
 
   renderBackground(): void {

@@ -2,14 +2,17 @@ import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../main";
 import { boundingButton } from "../../renderer/inputs";
 import { Earth } from "./earth";
 import { IUnit } from "./entity";
-import { PunkUnit } from "./unit";
+import { PunkUnit } from "./nft/punk";
+import { MonkeyUnit } from "./nft/monkey";
+import { BananaUnit } from "./nft/banana";
+
 
 export const PUNK_PRICE      = 1;
 export const IDONTKNOW_PRICE = 2.5;
 export const MONKEY_PRICE    = 5;
 
 const MAX_WALLET_DEFAULT  = 5;
-const ETH_START           = 0;
+const ETH_START           = 50;
 const RANGE_SPAWN         = 300;
 
 
@@ -17,7 +20,7 @@ export enum typeSelect {
   NULL,
   PUNK,
   IDONTKNOW,
-  MONKEY,
+  MONKEY
 }
 
 export class UnitManager {
@@ -51,6 +54,20 @@ export class UnitManager {
     }
   }
 
+  private spawnMonkey(x: number, y: number): void {
+    if (this.etherum >= MONKEY_PRICE) {
+      this.etherum -= MONKEY_PRICE;
+      const monkey = new MonkeyUnit(x, y, this.earth.size / 2);
+      this.units.push(monkey);
+      //console.log('spawned');
+    }
+  }
+
+  spawnBanana(x: number, y: number): void {
+    const banana = new BananaUnit(x, y, this.earth.size / 2);
+    this.units.push(banana);
+  }
+
   private isSelection(x: number, y: number): boolean {
     if (x >= this.bounding.startX
       && x <= this.bounding.startX + this.bounding.btnSize
@@ -59,7 +76,6 @@ export class UnitManager {
       return (true);
     return (false)
   }
-
 
   private spawnNft(x: number, y: number): void {
     let distance_sqrt = Math.pow(this.earth.x - x, 2)
@@ -70,6 +86,9 @@ export class UnitManager {
     switch (this.selected) {
       case typeSelect.PUNK:
         this.spawnPunk(x, y);
+        break;
+      case typeSelect.MONKEY:
+        this.spawnMonkey(x, y);
         break;
     }
   }

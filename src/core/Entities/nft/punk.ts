@@ -1,4 +1,4 @@
-import { allState, allType, IEntity, IUnit } from "./entity";
+import { allState, allType, IEntity, IUnit } from "../entity";
 
 const LIFE_PUNK = 50;
 const SPEED_PUNK = 50;
