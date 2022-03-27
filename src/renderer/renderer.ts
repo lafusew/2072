@@ -49,7 +49,7 @@ export class Renderer {
 
     this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage, this.monkeyImage, this.bananaImage);
 
-    this.earthImages = this.spriteRenderer.loadAnimationSprites(EARTH_SPRITES);
+    this.earthImages = this.spriteRenderer.loadAnimationSprites(EARTH_SPRITES, 'animated_earth/');
     this.btnRenderer = new BtnRenderer(this.ctx, this.punkImage, this.monkeyImage);
   }
 
