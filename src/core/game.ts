@@ -2,7 +2,6 @@
 import { Renderer } from "../renderer/renderer";
 import { Btc } from "./Entities/bitcoin";
 import { Earth } from "./Entities/earth";
-import { allState } from "./Entities/entity";
 import { UnitManager } from "./Entities/unitmanager";
 import { AudioManager } from "./sound/soundManager";
 
@@ -44,8 +43,7 @@ export class Game {
     this.btc.update(this.earth, delta);
 
     this.unitManager.getUnits().forEach(element => {
-      if (!btc_atck && this.btc.canAttack(element))
-      {
+      if (!btc_atck && this.btc.canAttack(element)) {
         this.btc.attack(element);
         btc_atck = true;
       }

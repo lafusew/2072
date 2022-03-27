@@ -1,5 +1,5 @@
 import { Btc } from "../core/Entities/bitcoin";
-import { Earth } from "../core/Entities/earth";
+import { Earth, LIFE_EARTH } from "../core/Entities/earth";
 import { IUnit } from "../core/Entities/entity";
 import { typeSelect } from "../core/Entities/unitmanager";
 import { BtnRenderer } from "./inputs";
@@ -14,6 +14,7 @@ export class Renderer {
   backgroundImage: CanvasImageSource;
   earthImage: CanvasImageSource;
   punkImage: CanvasImageSource;
+  lifeFrameImage: CanvasImageSource;
 
   spriteRenderer: SpriteRenderer;
   btnRenderer: BtnRenderer;
@@ -33,6 +34,8 @@ export class Renderer {
     this.earthImage.src = 'src/assets/earth.gif';
     this.punkImage = new Image();
     this.punkImage.src = 'src/assets/cryptopunk.png';
+    this.lifeFrameImage = new Image();
+    this.lifeFrameImage.src = 'src/assets/life_frame.png';
 
     this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage);
 
@@ -43,21 +46,32 @@ export class Renderer {
     this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvasWidth, this.canvasHeight);
   }
 
-  renderBtc(btc: Btc) {
+  renderBtc(btc: Btc): void {
     this.spriteRenderer.renderEntity(btc)
   }
 
-  renderNfts(units: IUnit[]) {
+  renderNfts(units: IUnit[]): void {
     units.forEach(unit => {
       this.spriteRenderer.renderEntity(unit);
     });
   }
 
-  renderUnitBtn(type: typeSelect) {
+  renderUnitBtn(type: typeSelect): void {
     this.btnRenderer.unitSelectionDisplay(type);
   }
 
-  renderEarth(earth: Earth) {
+  renderEarth(earth: Earth): void {
     this.ctx.drawImage(this.earthImage, earth.x - (earth.size / 2), earth.y - (earth.size / 2), earth.size, earth.size)
+    this.renderEarthLife(earth);
+  }
+
+  renderEarthLife(earth: Earth): void {
+    const x = (this.canvasWidth / 2) - (this.lifeFrameImage.width as number / 2);
+    const y = 0;
+    const lifePercentagePixel = earth.lifeAmount * (this.lifeFrameImage.width as number) / LIFE_EARTH;
+    this.ctx.fillStyle = 'red';
+    this.ctx.fillRect(x, y, lifePercentagePixel, this.lifeFrameImage.height as number);
+
+    this.ctx.drawImage(this.lifeFrameImage, x, y);
   }
 }
