@@ -5,6 +5,8 @@ import { typeSelect } from "../core/entities/unitmanager";
 import { BtnRenderer } from "./inputs";
 import { SpriteRenderer } from "./sprite";
 
+const EARTH_SPRITES = ['earth_0.gif', 'earth_1.gif', 'earth_2.gif', 'earth_3.gif', 'earth_4.gif', 'earth_5.gif', 'earth_6.gif', 'earth_7.gif', 'earth_8.gif', 'earth_9.gif', 'earth_10.gif', 'earth_11.gif']
+
 export class Renderer {
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
@@ -12,7 +14,7 @@ export class Renderer {
   canvasHeight: number;
 
   backgroundImage: CanvasImageSource;
-  earthImage: CanvasImageSource;
+  earthImages: CanvasImageSource[];
   punkImage: CanvasImageSource;
   monkeyImage: CanvasImageSource;
   bananaImage: CanvasImageSource;
@@ -33,8 +35,7 @@ export class Renderer {
 
     this.backgroundImage = new Image();
     this.backgroundImage.src = 'src/assets/background.png'
-    this.earthImage = new Image();
-    this.earthImage.src = 'src/assets/earth.gif';
+
     this.punkImage = new Image();
     this.punkImage.src = 'src/assets/cryptopunk.png';
     this.monkeyImage = new Image();
@@ -48,6 +49,7 @@ export class Renderer {
 
     this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage, this.monkeyImage, this.bananaImage);
 
+    this.earthImages = this.spriteRenderer.loadAnimationSprites(EARTH_SPRITES);
     this.btnRenderer = new BtnRenderer(this.ctx, this.punkImage, this.monkeyImage);
   }
 
@@ -69,8 +71,18 @@ export class Renderer {
     this.btnRenderer.unitSelectionDisplay(type);
   }
 
+
+
   renderEarth(earth: Earth): void {
-    this.ctx.drawImage(this.earthImage, earth.x - (earth.size / 2), earth.y - (earth.size / 2), earth.size, earth.size)
+    this.spriteRenderer.drawAnimatedImage(
+      this.earthImages,
+      {
+        x: earth.x,
+        y: earth.y,
+        angle: 0,
+        changespeed: 500
+      }
+    );
     this.renderEarthLife(earth);
   }
 
