@@ -9,6 +9,7 @@ export enum allState {
 export enum allType {
 	NULL,
 	PUNK,
+	TANK,
 	MONKEY,
 	BANANA,
 	BTC,
