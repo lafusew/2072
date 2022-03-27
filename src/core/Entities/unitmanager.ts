@@ -3,14 +3,14 @@ import { boundingButton } from "../../renderer/inputs";
 import { Earth } from "./earth";
 import { IUnit } from "./entity";
 import { PunkUnit } from "./nft/punk";
+import { TankUnit } from "./nft/tank";
 import { MonkeyUnit } from "./nft/monkey";
 import { BananaUnit } from "./nft/banana";
 
 
 export const PUNK_PRICE      = 2;
-export const IDONTKNOW_PRICE = 2.5;
 export const MONKEY_PRICE    = 7;
-export const TANK_PRICE      = 10;
+export const TANK_PRICE = 10;
 
 const MAX_WALLET_DEFAULT  = 5;
 const ETH_START           = 0;
@@ -55,6 +55,15 @@ export class UnitManager {
     }
   }
 
+  private spawnTank(x: number, y: number): void {
+    if (this.etherum >= TANK_PRICE) {
+      this.etherum -= TANK_PRICE;
+      const tank = new TankUnit(x, y, this.earth.size / 2);
+      this.units.push(tank);
+      //console.log('spawned');
+    }
+  }
+
   private spawnMonkey(x: number, y: number): void {
     if (this.etherum >= MONKEY_PRICE) {
       this.etherum -= MONKEY_PRICE;
@@ -87,6 +96,9 @@ export class UnitManager {
     switch (this.selected) {
       case typeSelect.PUNK:
         this.spawnPunk(x, y);
+        break;
+      case typeSelect.TANK:
+        this.spawnTank(x, y);
         break;
       case typeSelect.MONKEY:
         this.spawnMonkey(x, y);

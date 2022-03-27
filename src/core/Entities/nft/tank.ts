@@ -6,7 +6,7 @@ const SIZE_TANK = 80;
 const DAMAGE_TANK = 150;
 const DELAY_ATTACK = 2; // 0.5 punk
 
-export class PunkUnit implements IUnit {
+export class TankUnit implements IUnit {
   x: number;
   y: number;
   state: allState;
@@ -24,7 +24,7 @@ export class PunkUnit implements IUnit {
     this.x = x;
     this.y = y;
     this.state = allState.MOOVE;
-    this.type = allType.PUNK;
+    this.type = allType.TANK;
     this.lifeAmount = LIFE_TANK;
     this.speed = SPEED_TANK;
     this.range = radiusEarth * 1.2;

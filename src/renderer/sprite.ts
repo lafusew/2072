@@ -5,12 +5,14 @@ export class SpriteRenderer {
 
   btc: CanvasImageSource;
   punk: CanvasImageSource;
+  tank: CanvasImageSource;
   monkey: CanvasImageSource;
   banana: CanvasImageSource;
   constructor(
     ctx: CanvasRenderingContext2D,
     // to do for each sprites
     punk: CanvasImageSource,
+    tank: CanvasImageSource,
     monkey: CanvasImageSource,
     banana: CanvasImageSource,
   ) {
@@ -19,6 +21,7 @@ export class SpriteRenderer {
     this.btc.src = 'src/assets/btc.png';
 
     this.punk = punk;
+    this.tank = tank;
     this.monkey = monkey;
     this.banana = banana;
   }
@@ -32,7 +35,9 @@ export class SpriteRenderer {
       case allType.PUNK:
         this.ctx.drawImage(this.punk, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         break;
-
+      case allType.TANK:
+        this.ctx.drawImage(this.tank, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+        break;
       case allType.MONKEY:
         this.ctx.drawImage(this.monkey, entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         break;
