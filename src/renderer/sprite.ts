@@ -31,4 +31,38 @@ export class SpriteRenderer {
         break;
     }
   }
+
+  loadAnimationSprites(filenames: string[]): CanvasImageSource[] {
+    const sprites: CanvasImageSource[] = [];
+    for (let i = 0; i < filenames.length; i++) {
+      const img = new Image();
+      img.src = filenames[i]
+      sprites.push(img);
+    }
+    return sprites
+  }
+
+  drawAnimatedImage(
+    imgList: CanvasImageSource[],
+    config: {
+      x: number,
+      y: number,
+      angle: number,
+      factor: number,
+      changespeed: number
+    }
+  ) {
+    this.ctx.save();
+    this.ctx.translate(config.x, config.y);
+    this.ctx.rotate(config.angle * Math.PI / 180);
+    if (!!imgList[Math.round(Date.now() / config.changespeed) % imgList.length]) {
+      this.ctx.drawImage(
+        imgList[Math.round(Date.now() / config.changespeed) % imgList.length],
+        -(imgList[Math.round(Date.now() / config.changespeed) % imgList.length].width as number * config.factor / 2),
+        -(imgList[Math.round(Date.now() / config.changespeed) % imgList.length].height as number * config.factor / 2),
+        imgList[Math.round(Date.now() / config.changespeed) % imgList.length].width as number * config.factor,
+        imgList[Math.round(Date.now() / config.changespeed) % imgList.length].height as number * config.factor);
+    }
+    this.ctx.restore();
+  }
 }

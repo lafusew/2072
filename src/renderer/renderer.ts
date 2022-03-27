@@ -12,7 +12,7 @@ export class Renderer {
   canvasHeight: number;
 
   backgroundImage: CanvasImageSource;
-  earthImage: CanvasImageSource;
+  earthImages: CanvasImageSource[];
   punkImage: CanvasImageSource;
   lifeFrameImage: CanvasImageSource;
   ethImage: CanvasImageSource;
@@ -31,8 +31,7 @@ export class Renderer {
 
     this.backgroundImage = new Image();
     this.backgroundImage.src = 'src/assets/background.png'
-    this.earthImage = new Image();
-    this.earthImage.src = 'src/assets/earth.gif';
+
     this.punkImage = new Image();
     this.punkImage.src = 'src/assets/cryptopunk.png';
     this.lifeFrameImage = new Image();
@@ -42,6 +41,7 @@ export class Renderer {
 
     this.spriteRenderer = new SpriteRenderer(ctx, this.punkImage);
 
+    this.earthImages = this.spriteRenderer.loadAnimationSprites(['earth_',]);
     this.btnRenderer = new BtnRenderer(this.ctx, this.punkImage);
   }
 
