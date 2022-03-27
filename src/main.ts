@@ -39,7 +39,7 @@ function startGame(e: MouseEvent): void {
   ) {
     game.reset();
     run();
-    removeEventListener('mouseup', startGame)
+    canvas.removeEventListener('mouseup', startGame)
   }
 }
 
