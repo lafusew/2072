@@ -13,8 +13,13 @@ export class Renderer {
   canvasHeight: number;
 
   backgroundImage: CanvasImageSource;
+  clearBackgroundImage: CanvasImageSource;
+  text2072: CanvasImageSource;
+
   lifeFrameImage: CanvasImageSource;
   ethImage: CanvasImageSource;
+
+  playCtaAnimation: CanvasImageSource[];
 
   spriteRenderer: SpriteRenderer;
   btnRenderer: BtnRenderer;
@@ -31,6 +36,12 @@ export class Renderer {
     this.backgroundImage = new Image();
     this.backgroundImage.src = 'src/assets/background.png'
 
+    this.clearBackgroundImage = new Image();
+    this.clearBackgroundImage.src = 'src/assets/background_clear.png';
+
+    this.text2072 = new Image();
+    this.text2072.src = 'src/assets/2072.png';
+
     this.lifeFrameImage = new Image();
     this.lifeFrameImage.src = 'src/assets/life_frame.png';
     this.ethImage = new Image();
@@ -39,10 +50,28 @@ export class Renderer {
 
     this.spriteRenderer = new SpriteRenderer(ctx);
     this.btnRenderer = new BtnRenderer(this.ctx, this.spriteRenderer.punkSprites[0], this.spriteRenderer.tankSprites[0], this.spriteRenderer.monkeySprites[0]);
+    this.playCtaAnimation = this.spriteRenderer.loadAnimationSprites(['playBtn_1.png', 'playBtn_2.png']);
   }
 
   renderBackground(): void {
     this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvasWidth, this.canvasHeight);
+  }
+
+  renderMenu(addEventListen: () => void, playBtnConfig: { x: number, y: number, size: number }): void {
+    addEventListen();
+    this.ctx.drawImage(this.clearBackgroundImage, 0, 0, this.canvasWidth, this.canvasHeight);
+    this.ctx.font = "300px Minimal";
+    this.ctx.fillStyle = '#c0ffa3';
+    this.ctx.textAlign = 'center'
+    this.ctx.fillText('2072', this.canvasWidth / 2, this.canvasHeight / 2);
+    this.ctx.font = "40px Minimal";
+    this.spriteRenderer.drawAnimatedImage(this.playCtaAnimation, {
+      x: playBtnConfig.x,
+      y: playBtnConfig.y,
+      size: 300,
+      angle: 10,
+      changespeed: 1000
+    })
   }
 
   renderBtc(btc: Btc): void {

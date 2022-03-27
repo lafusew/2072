@@ -3,16 +3,15 @@ import { Renderer } from "../renderer/renderer";
 import { Btc } from "./allEntities/bitcoin";
 import { Earth } from "./allEntities/earth";
 import { allState, allType } from "./allEntities/entity";
-import { MonkeyUnit } from "./allEntities/nft/monkey";
 import { UnitManager } from "./allEntities/unitmanager";
 import { AudioManager } from "./sound/soundManager";
 
 
 const SPAWN_BTC_X = 200;
 const SPAWN_BTC_Y = 200;
-const FIRST_YEAR  = 2009;
-const FIRST_UP    = 2012;
-const LAST_YEAR   = 2072;
+const FIRST_YEAR = 2009;
+const FIRST_UP = 2012;
+const LAST_YEAR = 2020;
 
 export const SOUNDS_MAP = {
   tk1: 'tk1.mp3',
@@ -32,6 +31,7 @@ export class Game {
   give_upgrade: boolean;
   up_year: number;
   clock: number;
+  winner!: 'NFT' | 'BTC';
 
   constructor(canvas: HTMLCanvasElement) {
     this.give_upgrade = false;
@@ -50,20 +50,19 @@ export class Game {
     this.clock = 0;
   }
 
-  async init() {
+  async init(addEventListen: () => void, config: { x: number, y: number, size: number }) {
     await this.audio.init();
+
     let font = new FontFace('Minimal', 'url(src/assets/fonts/Minimal.ttf)');
     await font.load();
-
     // @ts-ignore: Unreachable code error. fonts.add does exist
     document.fonts.add(font);
-    this.ctx.font = "40px Minimal"; // set font
+    this.renderer.renderMenu(addEventListen, config);
   }
 
   private updateYear(delta: number): void {
     this.clock += delta;
-    if (this.clock > 2)
-    {
+    if (this.clock > 2) {
       this.give_upgrade = false;
       ++this.year;
       this.clock -= 2;
@@ -72,8 +71,7 @@ export class Game {
 
   private upgradeYear(): void {
     this.give_upgrade = true;
-    if (this.year >= 2015)
-    {
+    if (this.year >= 2015) {
       //this.unitManager.max_wallet += 1;
       this.unitManager.addEtherum(Math.floor(((this.year - 2000) / 10)));
     }
@@ -84,22 +82,27 @@ export class Game {
 
   private halvingYear(): void {
     this.up_year += 4;
-    this.unitManager.addEtherum( Math.floor(this.unitManager.getEtherum() * 0.3) );
+    this.unitManager.addEtherum(Math.floor(this.unitManager.getEtherum() * 0.3));
   }
 
 
   update(delta: number) {
     let btc_atck = false;
     // Logic
-    if (this.year == LAST_YEAR || this.earth.state == allState.DEAD)
-    {
+    if (this.year == LAST_YEAR) {
+      this.winner = 'BTC'
+      this.end = true;
+      return
+    }
+
+    if (this.earth.state == allState.DEAD) {
+      this.winner = 'NFT'
       this.end = true;
       return;
     }
     this.updateYear(delta)
 
-    if (!this.give_upgrade)
-    {
+    if (!this.give_upgrade) {
       this.upgradeYear();
       if (this.year == this.up_year)
         this.halvingYear();
@@ -117,20 +120,18 @@ export class Game {
       }
       else {
         if (element.updateAttack) {
-;         element.updateAttack(delta);
+          ; element.updateAttack(delta);
         }
-        if (element.type == allType.MONKEY)
-        {
+        if (element.type == allType.MONKEY) {
           if (element.attackBanana)
             element.attackBanana(this.unitManager);
         }
-        else
-        {
+        else {
           element.attack(this.earth);
         }
       }
     });
-0
+    0
     this.unitManager.units = this.unitManager.getUnits().filter((val) => !val.readyToDelete)
 
 

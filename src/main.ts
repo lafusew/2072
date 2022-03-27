@@ -20,9 +20,33 @@ let interval = 1000 / fps;
 
 const game = new Game(canvas);
 
-game.init().then(() => {
-  run();
-})
+const playBtnPos = {
+  x: canvas.width / 2 + 100,
+  y: canvas.height / 2 + 50,
+  size: 300
+}
+
+function startGame(e: MouseEvent): void {
+  let rect = canvas.getBoundingClientRect();
+  const x = e.x - rect.left;
+  const y = e.y - rect.top;
+  console.log(x, y)
+  if (
+    x >= playBtnPos.x - playBtnPos.size * .5
+    && x <= playBtnPos.x + playBtnPos.size * .5
+    && y >= playBtnPos.y - playBtnPos.size * .5
+    && y <= playBtnPos.y + playBtnPos.size * .5
+  ) {
+    run();
+    removeEventListener('mouseup', startGame)
+  }
+}
+
+function addEventListen() {
+  canvas.addEventListener('mouseup', startGame)
+}
+
+game.init(addEventListen, playBtnPos);
 
 
 function run() {
@@ -35,7 +59,12 @@ function run() {
   if (delta > interval) {
     then = now - (delta % interval);
     game.update(delta / 1000);
-    if (game.end)
-      return ;
+    if (game.end) {
+      game.renderer.renderMenu(addEventListen, playBtnPos)
+      game.ctx.textAlign = 'center';
+      game.ctx.fillText(game.winner + ' wins the game!!', canvas.width / 2, 80);
+      return
+    }
   }
 }
+
