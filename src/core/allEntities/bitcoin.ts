@@ -42,11 +42,11 @@ export class Btc implements IUnit {
     this.readyToDelete = false;
 
     window.addEventListener('keydown', (e) => {
-      this.keys[e.key] = true;
+      this.keys[e.code] = true;
     });
 
     window.addEventListener('keyup', (e) => {
-      this.keys[e.key] = false;
+      this.keys[e.code] = false;
     });
   }
 
@@ -84,26 +84,26 @@ export class Btc implements IUnit {
     if (this.lastAttack > 0.4)
       this.state = allState.MOOVE;
 
-    if (this.keys['ArrowUp']) {
+    if (this.keys['ArrowUp'] || this.keys['KeyW']) {
       if (this.velY > -this.speed) {
         this.velY--;
         this.velY--;
       }
     }
 
-    if (this.keys['ArrowDown']) {
+    if (this.keys['ArrowDown'] || this.keys['KeyS']) {
       if (this.velY < this.speed) {
         this.velY++;
         this.velY++;
       }
     }
-    if (this.keys['ArrowRight']) {
+    if (this.keys['ArrowRight'] || this.keys['KeyD']) {
       if (this.velX < this.speed) {
         this.velX++;
         this.velX++;
       }
     }
-    if (this.keys['ArrowLeft']) {
+    if (this.keys['ArrowLeft'] || this.keys['KeyA']) {
       if (this.velX > -this.speed) {
         this.velX--;
         this.velX--;
