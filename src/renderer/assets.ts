@@ -1,24 +1,28 @@
+const BASE_PATH = 'src/assets'
+
 interface AssetLoaderConfig {
   name: string;
   extension: string;
   subDir?: string;
 }
 
-interface SpritesLoaderConfig extends AssetLoaderConfig {
+export interface SpritesLoaderConfig extends AssetLoaderConfig {
   filenames: string[];
 }
 
-interface SpriteLoaderConfig extends AssetLoaderConfig {
+export interface SpriteLoaderConfig extends AssetLoaderConfig {
   filename: string;
 }
 
 export class AssetsManager {
+  static instance: AssetsManager;
+
   private basePath: string;
   private staticStore!: Record<string, CanvasImageSource>;
   private animatedStore!: Record<string, CanvasImageSource[]>;
 
-  constructor(basePath: string) {
-    this.basePath = basePath;
+  private constructor() {
+    this.basePath = BASE_PATH;
     this.staticStore = {};
     this.animatedStore = {};
   }
@@ -66,5 +70,9 @@ export class AssetsManager {
     subDir?: string,
   ): string {
     return `${this.basePath}/${subDir ? subDir + '/' : ''}${filename}.${extension}`;
+  }
+
+  public static getInstance() {
+    return this.instance || (this.instance = new AssetsManager());
   }
 }

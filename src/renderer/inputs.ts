@@ -50,6 +50,7 @@ export class BtnRenderer {
       this.UNIT_BTN_SIZE,
       this.UNIT_BTN_SIZE
     );
+
     this.ctx.drawImage(
       this.punk,
       this.UNIT_BTN_START_X + BTN_PADDING,
@@ -57,8 +58,6 @@ export class BtnRenderer {
       this.UNIT_BTN_SIZE - BTN_PADDING * 2,
       this.UNIT_BTN_SIZE - BTN_PADDING * 2
     );
-
-
 
     this.ctx.drawImage(
       selected == typeSelect.TANK ? this.frameSelected : this.frameUnselected,

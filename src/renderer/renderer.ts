@@ -1,9 +1,10 @@
-import { Btc } from "../core/allEntities/bitcoin";
 import { Earth, LIFE_EARTH } from "../core/allEntities/earth";
 import { IUnit } from "../core/allEntities/entity";
 import { typeSelect } from "../core/allEntities/unitmanager";
+import { AssetsManager } from "./assets";
 import { BtnRenderer } from "./inputs";
 import { SpriteRenderer } from "./sprite";
+import { ANIMATED_SPRITES, STATIC_SPRITES } from "./SPRITES_CONFIG";
 
 
 export class Renderer {
@@ -12,15 +13,7 @@ export class Renderer {
   canvasWidth: number;
   canvasHeight: number;
 
-  backgroundImage: CanvasImageSource;
-  clearBackgroundImage: CanvasImageSource;
-  text2072: CanvasImageSource;
-
-  lifeFrameImage: CanvasImageSource;
-  ethImage: CanvasImageSource;
-
-  playCtaAnimation: CanvasImageSource[];
-
+  assets: AssetsManager;
   spriteRenderer: SpriteRenderer;
   btnRenderer: BtnRenderer;
 
@@ -33,52 +26,54 @@ export class Renderer {
     this.canvasWidth = canvas.width;
     this.canvasHeight = canvas.height;
 
-    this.backgroundImage = new Image();
-    this.backgroundImage.src = 'src/assets/background.png'
+    this.assets = AssetsManager.getInstance();
 
-    this.clearBackgroundImage = new Image();
-    this.clearBackgroundImage.src = 'src/assets/background_clear.png';
 
-    this.text2072 = new Image();
-    this.text2072.src = 'src/assets/2072.png';
-
-    this.lifeFrameImage = new Image();
-    this.lifeFrameImage.src = 'src/assets/life_frame.png';
-    this.ethImage = new Image();
-
-    this.ethImage.src = 'src/assets/eth.png'
+    Object.values(STATIC_SPRITES).forEach(sprite => this.assets.loadSprite(sprite));
+    Object.values(ANIMATED_SPRITES).forEach(sprites => this.assets.loadSprites(sprites));
 
     this.spriteRenderer = new SpriteRenderer(ctx);
-    this.btnRenderer = new BtnRenderer(this.ctx, this.spriteRenderer.punkSprites[0], this.spriteRenderer.tankSprites[0], this.spriteRenderer.monkeySprites[0]);
-    this.playCtaAnimation = this.spriteRenderer.loadAnimationSprites(['playBtn_1.png', 'playBtn_2.png']);
+    this.btnRenderer = new BtnRenderer(
+      this.ctx,
+      this.assets.getAnimatedSprites('punk')[0],
+      this.assets.getAnimatedSprites('tank')[0],
+      this.assets.getAnimatedSprites('monkey')[0],
+    );
   }
 
   renderBackground(): void {
-    this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvasWidth, this.canvasHeight);
+    const bg = this.assets.getStaticSprite('bg');
+    this.ctx.drawImage(bg, 0, 0, this.canvasWidth, this.canvasHeight);
   }
 
   renderMenu(addEventListen: () => void, playBtnConfig: { x: number, y: number, size: number }): void {
+    // to be removed
     addEventListen();
-    this.ctx.drawImage(this.clearBackgroundImage, 0, 0, this.canvasWidth, this.canvasHeight);
+
+    const bgClear = this.assets.getStaticSprite('bg_clear');
+    const playBtn = this.assets.getAnimatedSprites('playBtn');
+
+    console.log(1)
+
+    this.ctx.drawImage(bgClear, 0, 0, this.canvasWidth, this.canvasHeight);
     this.ctx.font = "300px Minimal";
     this.ctx.fillStyle = '#c0ffa3';
     this.ctx.textAlign = 'center'
     this.ctx.fillText('2072', this.canvasWidth / 2, this.canvasHeight / 2);
     this.ctx.font = "40px Minimal";
-    this.spriteRenderer.drawAnimatedImage(this.playCtaAnimation, {
+
+    this.spriteRenderer.drawAnimatedImage(playBtn, {
       x: playBtnConfig.x,
       y: playBtnConfig.y,
       size: 300,
       angle: 10,
-      changespeed: 1000
+      changespeed: 100
     })
+
+
   }
 
-  renderBtc(btc: Btc): void {
-    this.spriteRenderer.renderEntity(btc)
-  }
-
-  renderNfts(units: IUnit[]): void {
+  renderUnits(units: IUnit[]): void {
     units.forEach(unit => {
       this.spriteRenderer.renderEntity(unit);
     });
@@ -88,16 +83,20 @@ export class Renderer {
     this.btnRenderer.unitSelectionDisplay(type);
   }
 
-
   renderEarth(earth: Earth): void {
-    this.spriteRenderer.renderAnimatedEntity(earth, this.spriteRenderer.earthSprites, earth.getSize());
+    this.spriteRenderer.renderAnimatedEntity(
+      earth,
+      this.assets.getAnimatedSprites('earth'),
+      earth.getSize()
+    );
     this.renderEarthLife(earth);
   }
 
   renderEarthLife(earth: Earth): void {
-    const x = (this.canvasWidth / 2) - (this.lifeFrameImage.width as number / 2);
+    const lifeFrame = this.assets.getStaticSprite('life_frame')
+    const x = (this.canvasWidth / 2) - (lifeFrame.width as number / 2);
     const y = 0;
-    const lifePercentagePixel = earth.lifeAmount * (this.lifeFrameImage.width as number) / LIFE_EARTH;
+    const lifePercentagePixel = earth.lifeAmount * (lifeFrame.width as number) / LIFE_EARTH;
 
     this.ctx.fillStyle = '#23bd16';
 
@@ -110,20 +109,21 @@ export class Renderer {
     }
 
 
-    this.ctx.fillRect(x, y, lifePercentagePixel, this.lifeFrameImage.height as number);
+    this.ctx.fillRect(x, y, lifePercentagePixel, lifeFrame.height as number);
 
-    this.ctx.drawImage(this.lifeFrameImage, x, y);
+    this.ctx.drawImage(lifeFrame, x, y);
   }
 
   renderEthCount(eth: number, maxWallet: number) {
-    this.ctx.drawImage(this.ethImage, this.canvasWidth - 90, 20);
+    const ethLogo = this.assets.getStaticSprite('eth_logo');
+    this.ctx.drawImage(ethLogo, this.canvasWidth - 90, 20);
     this.ctx.textAlign = "right";
     if (eth == maxWallet)
       this.ctx.fillStyle = '#faf663';
     else
       this.ctx.fillStyle = '#ca42fb';
 
-    this.ctx.fillText(String(eth), this.canvasWidth - 10, 60 + (this.ethImage.height as number))
+    this.ctx.fillText(String(eth), this.canvasWidth - 10, 60 + (ethLogo.height as number))
   }
 
   renderYear(year: number) {
