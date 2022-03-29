@@ -151,9 +151,8 @@ export class Game {
     this.renderer.renderBackground();
     this.renderer.renderEarth(this.earth);
     this.renderer.renderUnitBtn(this.unitManager.getSelected());
-    this.renderer.renderNfts(this.unitManager.getUnits());
+    this.renderer.renderUnits([...this.unitManager.getUnits(), this.btc]);
     this.renderer.renderEthCount(this.unitManager.getEtherum(), this.unitManager.max_wallet);
     this.renderer.renderYear(this.year);
-    this.renderer.renderBtc(this.btc);
   }
 }

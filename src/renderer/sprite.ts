@@ -1,71 +1,67 @@
 import { allState, allType, IEntity } from "../core/allEntities/entity";
+import { AssetsManager } from "./assets";
 
-const EARTH_SPRITES = ['earth_0.gif', 'earth_1.gif', 'earth_2.gif', 'earth_3.gif', 'earth_4.gif', 'earth_5.gif', 'earth_6.gif', 'earth_7.gif', 'earth_8.gif', 'earth_9.gif', 'earth_10.gif', 'earth_11.gif'];
-const BTC_SPRITES = ['btc_attack_0.gif', 'btc_attack_1.gif', 'btc_attack_2.gif', 'btc_attack_3.gif', 'btc_attack_4.gif'];
-const MONKEY_SPRITES = ['monkey_0.gif', 'monkey_1.gif'];
-const PUNK_SPRITES = ['punk_0.gif', 'punk_1.gif'];
-const BANANA_SPRITES = ['banana_0.png', 'banana_1.png', 'banana_2.png', 'banana_3.png'];
-const TANK_SPRITES = ['tank_0.gif', 'tank_1.gif'];
+
 
 export class SpriteRenderer {
   ctx: CanvasRenderingContext2D;
 
-  btcSprites: CanvasImageSource[];
-  punkSprites: CanvasImageSource[];
-  tankSprites: CanvasImageSource[];
-  monkeySprites: CanvasImageSource[];
-  bananaSprites: CanvasImageSource[];
-  earthSprites: CanvasImageSource[];
+  assets: AssetsManager;
   constructor(
     ctx: CanvasRenderingContext2D,
-    // to do for each sprites
   ) {
     this.ctx = ctx;
-    this.punkSprites = this.loadAnimationSprites(PUNK_SPRITES, 'animated_punk/')
-    this.btcSprites = this.loadAnimationSprites(BTC_SPRITES, 'animated_btc/')
-    this.monkeySprites = this.loadAnimationSprites(MONKEY_SPRITES, 'animated_monkey/');
-    this.earthSprites = this.loadAnimationSprites(EARTH_SPRITES, 'animated_earth/');
-    this.bananaSprites = this.loadAnimationSprites(BANANA_SPRITES, 'animated_banana/');
-    this.tankSprites = this.loadAnimationSprites(TANK_SPRITES, 'animated_tank/')
+
+    this.assets = AssetsManager.getInstance();
   }
 
   renderEntity(entity: IEntity) {
     switch (entity.type) {
 
       case allType.BTC:
+        const btc = this.assets.getAnimatedSprites('btc');
         if (entity.state === allState.ATTACK) {
-          this.renderAnimatedEntity(entity, this.btcSprites, 100);
+          this.renderAnimatedEntity(entity, btc, 100);
         } else {
-          this.ctx.drawImage(this.btcSprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+          this.ctx.drawImage(
+            btc[0],
+            entity.x - (entity.size / 2),
+            entity.y - (entity.size / 2),
+            entity.size, entity.size
+          );
         }
         break;
 
       case allType.PUNK:
+        const punk = this.assets.getAnimatedSprites('punk');
         if (entity.state === allState.TAKEDAMAGE) {
-          this.renderAnimatedEntity(entity, this.punkSprites, 100);
+          this.renderAnimatedEntity(entity, punk, 100);
         } else {
-          this.ctx.drawImage(this.punkSprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+          this.ctx.drawImage(punk[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         }
         break;
 
       case allType.TANK:
+        const tank = this.assets.getAnimatedSprites('tank');
         if (entity.state === allState.TAKEDAMAGE) {
-          this.renderAnimatedEntity(entity, this.tankSprites, 100);
+          this.renderAnimatedEntity(entity, tank, 100);
         } else {
-          this.ctx.drawImage(this.tankSprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+          this.ctx.drawImage(tank[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         }
         break;
 
       case allType.MONKEY:
+        const monkey = this.assets.getAnimatedSprites('monkey');
         if (entity.state === allState.TAKEDAMAGE) {
-          this.renderAnimatedEntity(entity, this.monkeySprites, 100);
+          this.renderAnimatedEntity(entity, monkey, 100);
         } else {
-          this.ctx.drawImage(this.monkeySprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
+          this.ctx.drawImage(monkey[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         }
         break;
 
       case allType.BANANA:
-        this.renderAnimatedEntity(entity, this.bananaSprites, 200);
+        const banana = this.assets.getAnimatedSprites('banana');
+        this.renderAnimatedEntity(entity, banana, 200);
         // this.ctx.drawImage(this.bananaSprites[0], entity.x - (entity.size / 2), entity.y - (entity.size / 2), entity.size, entity.size);
         break;
 
@@ -82,19 +78,6 @@ export class SpriteRenderer {
       changespeed: speed,
       size: entity.size
     })
-  }
-
-  loadAnimationSprites(
-    filenames: string[],
-    namePath = ''
-  ): CanvasImageSource[] {
-    const sprites: CanvasImageSource[] = [];
-    for (let i = 0; i < filenames.length; i++) {
-      const img = new Image();
-      img.src = "src/assets/" + namePath + filenames[i]
-      sprites.push(img);
-    }
-    return sprites
   }
 
   drawAnimatedImage(
