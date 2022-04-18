@@ -1,8 +1,19 @@
-# Viva Tech Gamejam
+# 2072
 
-A HTML Canvas game made in 2 days for the Vivatech Gamejam of March 22.
+2072 is a simple and sarcastic HTML Canvas game made in 2 days for the Vivatech Gamejam of March 22. We we're a group of 3 (@tsannie, @dovdjian and @lafusew). 
 
-## Requirements
+Currently this is what we manage to achieve in 3 days.  
+We would like to finish this projet to have a fun multiplayer game that you can play from time to time.
+
+While the goal isn't to make a fully fledged game, we might take some time together to complete it. We would like to add:
+- complete animations
+- end game screen
+- sounds & musics
+- multiplayer matchmaking / room system.
+
+## Try it yourself
+
+### Requirements
 
 Nodejs and Yarn.
 
@@ -12,11 +23,15 @@ If you're not on MacOS or don't have homebrew installed, first if you don't have
 
 And then install Yarn like that `curl -o- -L https://yarnpkg.com/install.sh | bash`
 
-## Run the projet
+### Run the project
 
 Run `yarn install` at the root of this directory. It will install all javascript dependencies automatically.
 
 Run `yarn dev` and go to http://localhost:3000
+
+
+
+## Gamejam todo list.
 
 - ZONE DE SPAWN
 	- dessiner zone de spwn
