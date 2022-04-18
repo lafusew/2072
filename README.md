@@ -1,6 +1,6 @@
 # 2072
 
-2072 is a simple and sarcastic HTML Canvas game made in 2 days for the Vivatech Gamejam of March 22. We we're a group of 3 (@tsannie, @dovdjian and @lafusew). 
+2072 is a simple and sarcastic HTML Canvas game made in 2 days for the Vivatech Gamejam of March 22. We we're a group of 3 ([@tsannie](https://github.com/tsannie), [@dovdjian](https://github.com/dovdjian) and [@lafusew](https://github.com/lafusew)). 
 
 Currently this is what we manage to achieve in 3 days.  
 We would like to finish this projet to have a fun multiplayer game that you can play from time to time.
